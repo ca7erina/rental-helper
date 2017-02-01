@@ -16,16 +16,15 @@ libraryDependencies ++= Seq(
   filters
 )
 
-
 resolvers ++= Seq(
     "Apache" at "http://repo1.maven.org/maven2/",
     "jBCrypt Repository" at "http://repo1.maven.org/maven2/org/",
-    "Sonatype OSS Snasphots" at "http://oss.sonatype.org/content/repositories/snapshots"
+    "Sonatype OSS Snasphots" at "http://oss.sonatype.org/content/repositories/snapshots",
+    "Typesafe Ivy releases" at "https://repo.typesafe.com/typesafe/ivy-releases"
 )
+
 routesGenerator := InjectedRoutesGenerator
 
 lazy val root = (project in file(".")).enablePlugins(play.PlayJava, PlayEbean)
-
-
 
 fork in run := true
