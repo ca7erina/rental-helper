@@ -11,9 +11,7 @@ db
 .project
 .settings
 .sbtserver
-bin
 out
 conf/application.conf
 conf/evolutions
 documentation/
-libexec/
