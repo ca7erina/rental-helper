@@ -10,6 +10,8 @@ error.technical=Technical Error, please Retry
 validate=Validate
 reset=Reset
 
+account.match.setting=Match Setting
+
 account.not.validated.check.mail=Account not validated. Check your emails.
 account.successfully.validated=Account successfully validated
 account.settings.email.successful=Email successfully validated ({0})
