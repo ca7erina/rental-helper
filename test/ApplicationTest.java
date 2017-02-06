@@ -2,9 +2,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.*;
+
 import org.junit.Test;
 import play.mvc.Result;
 import play.test.WithApplication;
+
 import static play.test.Helpers.fakeRequest;
 import static play.test.Helpers.routeAndCall;
 
@@ -12,12 +14,12 @@ import static play.test.Helpers.routeAndCall;
 /**
  * Basic Tests
  */
-public class ApplicationTest extends WithApplication{
+public class ApplicationTest extends WithApplication {
 
     @Test
     public void simpleCheck() {
         int a = 1 + 1;
-        assertEquals(a,2);
+        assertEquals(a, 2);
 
     }
 
@@ -28,5 +30,4 @@ public class ApplicationTest extends WithApplication{
         );
         assertEquals(OK, result.status());
     }
-
 }
