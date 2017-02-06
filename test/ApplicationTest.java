@@ -18,14 +18,11 @@ public class ApplicationTest extends WithApplication {
     public void simpleCheck() {
         int a = 1 + 1;
         assertEquals(a, 2);
-
     }
 
     @Test
     public void testCallIndex() {
-        Result result = route(
-                fakeRequest()
-        );
+        Result result = route(fakeRequest());
         assertEquals(OK, result.status());
     }
 }
