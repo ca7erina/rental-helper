@@ -1,0 +1,17 @@
+
+@(profileForm: Form[Profile])
+@import helper._
+
+@main() {
+
+    <h1> Create Your Profile! </h1>
+    @helper.form( action = routes.CreateProfile.submit(), 'id -> "profileForm"){
+
+      @helper.inputText(profileForm("name"))
+      @helper.inputText(profileForm("age"))
+      <input type = "submit" class = "btn primary" value = "Send">
+
+
+    }
+
+}

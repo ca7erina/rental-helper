@@ -41,3 +41,6 @@ GET     /matches                       controllers.Matches.index()
 GET     /matches/getmatchedlist        controllers.Matches.getMatchedList()
 GET     /matches/getwaitinglist        controllers.Matches.getWaitingList()
 GET     /matches/getnewsuggestionlist  controllers.Matches.getNewSuggestionMatches()
+
+GET     /createprofile              controllers.CreateProfile.index()
+POST    /createprofile              controllers.CreateProfile.submit()
