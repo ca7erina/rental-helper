@@ -1,5 +1,5 @@
 
-@(profileForm: Form[Profile])
+@(profileForm: Form[UserProfile])
 @import helper._
 
 @main() {
@@ -9,7 +9,7 @@
 
       @helper.inputText(profileForm("name"))
       @helper.inputText(profileForm("age"))
-      <input type = "submit" class = "btn primary" value = "Send">
+      <input type = "submit" class = "btn primary" value = "Create">
 
 
     }

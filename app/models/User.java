@@ -7,6 +7,7 @@ import play.data.validation.Constraints;
 import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -46,6 +47,11 @@ public class User extends Model {
     @Formats.NonEmpty
     public Boolean validated = false;
 
+    /*
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    public UserProfile profile;
+    */
     // -- Queries (long id, user.class)
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 

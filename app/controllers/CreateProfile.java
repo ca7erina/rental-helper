@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Profile;
+import models.UserProfile;
 
 import controllers.Application;
 import models.User;
@@ -8,7 +8,7 @@ import models.utils.AppException;
 import models.utils.Hash;
 import play.Logger;
 import play.Configuration;
-/*import play.data.Form;*/
+import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
 import play.mvc.Result;
@@ -19,16 +19,18 @@ import play.mvc.Controller;
 
 public class CreateProfile extends Controller{
 
-  public final Form<Profile> profileForm = form( Profile.class);
+  public Form<UserProfile> profileForm = form( UserProfile.class);
 
   public Result index() {
-      return ok(create.render(profileForm));    /*createprofile.render(User.findByEmail(request().username()),form(Application.Register.class)));*/
+      return ok(createprofile.render(profileForm));    /*createprofile.render(User.findByEmail(request().username()),form(Application.Register.class)));*/
   }
 
   public Result submit() {
+      Form<UserProfile> filledForm = profileForm.bindFromRequest();
+      UserProfile created = filledForm.get();
+      /*created.id = ctx().session().get(id);*/
 
-      Form<Profile> filledForm = profileForm.bindFromRequest();
-      Profile created = filledForm.get();
-
+      created.save();
+      return ok(ctx().session().get("id"));
   }
 }
