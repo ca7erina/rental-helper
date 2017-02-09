@@ -13,5 +13,4 @@ db
 .sbtserver
 out
 conf/application.conf
-conf/evolutions
 documentation/

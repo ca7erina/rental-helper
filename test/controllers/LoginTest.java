@@ -1,5 +1,6 @@
 package controllers;
 
+import org.junit.Before;
 import org.junit.Test;
 import play.mvc.Result;
 import play.test.WithApplication;
@@ -16,6 +17,11 @@ import static play.test.Helpers.*;
  */
 public class LoginTest extends WithApplication {
 
+    @Before
+    public void setUp() {
+        start(fakeApplication(inMemoryDatabase()));
+    }
+
     @Test
     public void LoginWithEmptyParameters() {
         Result result = route(fakeRequest("POST", routes.Application.authenticate().toString()));
@@ -25,7 +31,7 @@ public class LoginTest extends WithApplication {
     @Test
     public void LoginWithCorrectPassword() {
         Map<String, String> data = new HashMap<>();
-        data.put("email", "chenx6@tcd.ie");
+        data.put("email", "admin@gmail.com");
         data.put("password", "123456");
         Result result = route(fakeRequest("POST", routes.Application.authenticate().toString()).bodyForm(data));
         assertEquals(SEE_OTHER, result.status());
