@@ -17,15 +17,25 @@ public class UserProfile extends Model{
   @Column(unique=true)
   public Long id;
 
-  @Constraints.Required
-  @Formats.NonEmpty
+  /*@Constraints.Required
+  @Formats.NonEmpty*/
   @Column(unique=true)
   public String name;
 
   @Constraints.Required
   @Formats.NonEmpty
   @Column(unique=true)
+  public String gender;
+
+  @Constraints.Required
+  @Formats.NonEmpty
+  @Column(unique=true)
   public String age;
+
+  @Constraints.Required
+  @Formats.NonEmpty
+  @Column(unique=true)
+  public String bio;
 
   /*
   @OneToOne(mappedBy="id")

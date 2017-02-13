@@ -7,8 +7,9 @@
     <h1> Create Your Profile! </h1>
     @helper.form( action = routes.CreateProfile.submit(), 'id -> "profileForm"){
 
-      @helper.inputText(profileForm("name"))
+      @helper.inputText(profileForm("gender"))
       @helper.inputText(profileForm("age"))
+      @helper.inputText(profileForm("bio"))
       <input type = "submit" class = "btn primary" value = "Create">
 
 
