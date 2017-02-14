@@ -1,11 +1,14 @@
 package controllers.account.settings;
 
 import controllers.Secured;
+import models.User;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-/** Match Setting page
+/**
+ * Match Setting page
  * Created by vuongnguyen on 03/02/2017.
  */
 
@@ -13,7 +16,7 @@ import play.mvc.Security;
 public class Match extends Controller {
 
     /**
-     * Main page settings
+     * Match page settings
      *
      * @return index settings
      */
