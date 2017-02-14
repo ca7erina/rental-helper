@@ -53,6 +53,19 @@ VALUES
     1)
     ;
 
+    INSERT INTO user_profile (
+      id,
+      name,
+      gender,
+      age,
+      bio)
+    VALUES
+      (2,
+      'Admin',
+      'Male',
+      '21',
+      'Hi');
+
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;

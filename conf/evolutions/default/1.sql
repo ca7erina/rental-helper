@@ -26,9 +26,24 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create table user_profile (
+  id                        bigint not null,
+  name                      varchar(255),
+  gender                    varchar(255),
+  age                       varchar(255),
+  bio                       varchar(255),
+  constraint uq_user_profile_name unique (name),
+  constraint uq_user_profile_gender unique (gender),
+  constraint uq_user_profile_age unique (age),
+  constraint uq_user_profile_bio unique (bio),
+  constraint pk_user_profile primary key (id))
+;
+
 create sequence token_seq;
 
 create sequence user_seq;
+
+create sequence user_profile_seq;
 
 
 
@@ -41,9 +56,13 @@ drop table if exists token;
 
 drop table if exists user;
 
+drop table if exists user_profile;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists token_seq;
 
 drop sequence if exists user_seq;
+
+drop sequence if exists user_profile_seq;
 

@@ -40,9 +40,6 @@ public class Application extends Controller {
             User user = User.findByEmail(email);
             if (user != null && user.validated) {
 
-                String id = user.id.toString();
-                session("id",id);
-                session("name",user.fullname);
                 return GO_DASHBOARD;
             } else {
                 Logger.debug("Clearing invalid session credentials");
@@ -137,6 +134,11 @@ public class Application extends Controller {
             return badRequest(index.render(registerForm, loginForm));
         } else {
             session("email", loginForm.get().email);
+            User user = User.findByEmail(loginForm.get().email);
+            String id = user.id.toString();
+            session("id",id);
+            session("name",user.fullname);
+            System.out.println(id);
             return GO_DASHBOARD;
         }
     }

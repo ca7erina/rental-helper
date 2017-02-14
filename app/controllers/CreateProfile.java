@@ -28,11 +28,11 @@ public class CreateProfile extends Controller{
   public Result submit() {
       Form<UserProfile> filledForm = profileForm.bindFromRequest();
       UserProfile created = filledForm.get();
-      String id = session("id");
+      String id = session().get("id");
       System.out.println(id);
       created.id = Long.valueOf(id).longValue();
       created.name = session("name");
       created.save();
-      return ok( createprofile.render(profileForm));
+      return ok(createprofile.render(profileForm));
   }
 }
