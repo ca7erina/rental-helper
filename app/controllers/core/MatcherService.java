@@ -1,6 +1,7 @@
 package controllers.core;
 
 import models.User;
+import play.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +18,30 @@ import java.util.List;
 
 public class MatcherService {
 
-    public List<User> getAgreedUsers() {
-        return new ArrayList<User>();
+    /**
+     *
+     * @param username email to search the matched users that already agreed with user request
+     * @return List of matched users
+     */
+    public static List<User> getMatchedUsers(String username) {
+        return User.findSimilarityFullname(username);
     }
 
-    public List<User> getWaitingUsers() {
-        return new ArrayList<User>();
+    /**
+     *
+     * @param username email to search the waiting users that haven't responded to the user request
+     * @return List of waiting users
+     */
+    public static List<User> getWaitingForUsers(String username) {
+        return User.findSimilarityFullname(username);
     }
 
-    public List<User> getMatcherUsers() {
-        return new ArrayList<User>();
+    /**
+     *
+     * @param username email to search the suggest users from the matching algorithm
+     * @return List of suggestion users
+     */
+    public static List<User> getNewSuggestionUsers(String username) {
+        return User.findSimilarityFullname(username);
     }
 }
