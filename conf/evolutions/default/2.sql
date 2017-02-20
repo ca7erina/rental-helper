@@ -54,17 +54,20 @@ VALUES
     ;
 
     INSERT INTO user_profile (
-      id,
+      profile_id,
       name,
       gender,
       age,
-      bio)
+      bio,
+      user_id)
     VALUES
-      (2,
+      (user_profile_seq.nextval,
       'Admin',
       'Male',
       '21',
-      'Hi');
+      'Hi',
+       2
+    );
 
 # --- !Downs
 

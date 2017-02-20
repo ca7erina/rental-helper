@@ -27,6 +27,7 @@ play.evolutions.autoApply=true
 #MySQL database engine connection properties
 #db.default.driver=com.mysql.jdbc.Driver
 #db.default.url="jdbc:mysql://localhost/default"
+#db.default.autocommit=true
 #db.default.username="root"
 #db.default.password="cd"
 

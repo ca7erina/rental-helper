@@ -47,6 +47,9 @@ public class User extends Model {
     @Formats.NonEmpty
     public Boolean validated = false;
 
+    @OneToOne(mappedBy = "user")
+    public UserProfile profile;
+
     /*
     @OneToOne
     @PrimaryKeyJoinColumn

@@ -27,16 +27,18 @@ create table user (
 ;
 
 create table user_profile (
-  id                        bigint not null,
+  profile_id                bigint not null,
   name                      varchar(255),
   gender                    varchar(255),
   age                       varchar(255),
+  image                     blob,
   bio                       varchar(255),
+  id                        bigint,
+  user_id                   bigint,
   constraint uq_user_profile_name unique (name),
-  constraint uq_user_profile_gender unique (gender),
-  constraint uq_user_profile_age unique (age),
-  constraint uq_user_profile_bio unique (bio),
-  constraint pk_user_profile primary key (id))
+  constraint uq_user_profile_id unique (id),
+  constraint uq_user_profile_user_id unique (user_id),
+  constraint pk_user_profile primary key (profile_id))
 ;
 
 create sequence token_seq;
@@ -45,6 +47,8 @@ create sequence user_seq;
 
 create sequence user_profile_seq;
 
+alter table user_profile add constraint fk_user_profile_user_1 foreign key (id) references user (id) on delete restrict on update restrict;
+create index ix_user_profile_user_1 on user_profile (id);
 
 
 
