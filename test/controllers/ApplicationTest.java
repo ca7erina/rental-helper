@@ -15,7 +15,7 @@ import static play.test.Helpers.*;
 /**
  * Tests for Login
  */
-public class LoginTest extends WithApplication {
+public class ApplicationTest extends WithApplication {
 
     @Before
     public void setUp() {
@@ -23,13 +23,13 @@ public class LoginTest extends WithApplication {
     }
 
     @Test
-    public void LoginWithEmptyParameters() {
+    public void testLoginWithEmptyParameters() {
         Result result = route(fakeRequest("POST", routes.Application.authenticate().toString()));
         assertEquals(BAD_REQUEST, result.status());
     }
 
     @Test
-    public void LoginWithCorrectPassword() {
+    public void testLoginWithCorrectPassword() {
         Map<String, String> data = new HashMap<>();
         data.put("email", "admin@gmail.com");
         data.put("password", "123456");

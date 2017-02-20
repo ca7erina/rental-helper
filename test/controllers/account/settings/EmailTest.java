@@ -1,4 +1,4 @@
-package controllers;
+package controllers.account.settings;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static play.test.Helpers.inMemoryDatabase;
 /**
  * Created by vuongnguyen on 13/02/2017.
  */
-public class AccountSettingTest {
+public class EmailTest {
     @Before
     public void setUp() {
         start(fakeApplication(inMemoryDatabase()));

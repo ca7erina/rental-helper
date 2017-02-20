@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: vuongnq
@@ -17,6 +18,8 @@ import java.util.Date;
  */
 @Entity
 public class User extends Model {
+
+    protected static int MAX_LIMIT_ROWS = 3;
 
     @Id
     public Long id;
@@ -64,6 +67,17 @@ public class User extends Model {
      */
     public static User findByFullname(String fullname) {
         return find.where().eq("fullname", fullname).findUnique();
+    }
+
+    /**
+     * Retrieve similarity users based on their full name and limit to 3 persons
+     *
+     * @param email email to search
+     * @return List of users
+     */
+    public static List<User> findSimilarityFullname(String email) {
+        String fullname = User.findByEmail(email).fullname;
+        return find.where().ilike("fullname", "%" + fullname + "%").setMaxRows(User.MAX_LIMIT_ROWS).findList();
     }
 
     /**
