@@ -1,0 +1,31 @@
+@(user: User)
+
+@main(user) {
+    <div class = "table-responsive container">
+
+        <div class = "row" id = "matchediterator">
+            <h1>Matched Renters</h1>
+            <div class = "text-center ">
+               <strong><img src="@routes.Assets.at("images/loading.gif")">&nbsp;Loading...</strong>
+            </div>
+        </div>
+
+        <div class = "row" id = "waitForListArea">
+            <h1>Waiting For Responses</h1>
+            <table class = "table table-striped" id="waitingiterator">
+                <tr>
+                    <td style="white-space: nowrap"><strong><img src="@routes.Assets.at("images/loading.gif")">&nbsp;Loading...</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class = "row" id = "newSuggestionIterator">
+            <h1>New Suggestion</h1>
+            <div class = "text-center ">
+                <strong><img src="@routes.Assets.at("images/loading.gif")">&nbsp;Loading...</strong>
+            </div>
+        </div>
+    </div>
+
+<script src="@routes.Assets.at("javascripts/matches.js")" type="text/javascript"></script>
+}
