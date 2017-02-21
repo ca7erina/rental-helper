@@ -12,5 +12,4 @@ db
 .settings
 .sbtserver
 out
-conf/application.conf
 documentation/
