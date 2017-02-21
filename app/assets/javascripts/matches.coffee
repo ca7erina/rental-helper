@@ -9,7 +9,7 @@ getMatchedListData = () ->
       listBody = ""
       $.each data, (index, user) ->
         listCell = "<div class='col-sm-" + "6" + " text-center'>" +
-        "<figure> " +
+        "<figure class= 'profile'> " +
         "<img class=' mx-auto d-block img-rounded img-responsive img-fluid' src='/assets/images/temp.png' >" +
         "<figcaption>" + user.fullname + "</figcaption> " +
         "</figure></div>"
@@ -57,7 +57,7 @@ getNewSuggestionListData = () ->
       listBody = ""
       $.each data, (index, user) ->
         listCell = "<div class='col-sm-" + "2" + " text-center'>" +
-        "<figure> " +
+        "<figure class= 'profile'> " +
         "<img class=' mx-auto d-block img-rounded img-responsive img-fluid descrption-tooltip' src='/assets/images/temp.png' title='description' data-toggle='tooltip' data-placement='bottom'>" +
         "<figcaption>" + user.fullname + "</figcaption> " +
         "<figcaption><button type='button' class='btn btn-danger btn-xs' title='description' userid='" + user.id + "'><i class='icon-like'></i> <strong>"+ "Like" +"</strong></button>&nbsp;&nbsp;<button type='button' class='btn btn-success btn-xs' title='description' userid='" + user.id + "'><i class='icon-unlike'></i> <strong>" + "UnLike" + "</strong></button></figcaption> " +
