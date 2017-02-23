@@ -55,7 +55,6 @@ public class UserProfile extends Model{
   @Column(unique=true)
   public Long userId;
 
-
   public static Model.Finder<Long, UserProfile> find = new Model.Finder<Long, UserProfile>(Long.class, UserProfile.class);
 
   public static UserProfile findByUserId(Long id) {

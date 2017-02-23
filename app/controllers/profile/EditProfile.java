@@ -29,11 +29,9 @@ public class EditProfile extends Controller{
 
   public Result index() {
       User user = User.findByEmail(session().get("email"));
-      UserProfile profile = UserProfile.find.where().eq("user_id", user.id).findUnique(); //byId(user.id);
-      //UserProfile profile = new UserProfile();
-
+      UserProfile profile = UserProfile.find.where().eq("user_id", user.id).findUnique(); 
       profileForm = profileForm.fill(profile);
-      return ok(editprofile.render(user,profileForm));    /*createprofile.render(User.findByEmail(request().username()),form(Application.Register.class)));*/
+      return ok(editprofile.render(user,profileForm));
   }
 
 
@@ -50,15 +48,12 @@ public class EditProfile extends Controller{
           if (body != null && body.getFile("image") != null) {
             picture = body.getFile("image");
           }
-
           UserProfile profile = null;
-
           if (user != null) {
             profile = UserProfile.findByUserId(user.id);
           } else {
             profile = UserProfile.findByUserId(filledForm.get().userId);
           }
-
           profile.set(filledForm.get());
 
           if (picture != null && picture.getFile() != null) {

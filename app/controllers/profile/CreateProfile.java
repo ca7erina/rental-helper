@@ -26,7 +26,7 @@ public class CreateProfile extends Controller{
   public Form<UserProfile> profileForm = form( UserProfile.class);
 
   public Result index() {
-      return ok(createprofile.render(profileForm));    /*createprofile.render(User.findByEmail(request().username()),form(Application.Register.class)));*/
+      return ok(createprofile.render(profileForm));
   }
 
   public Result submit() {
@@ -36,20 +36,15 @@ public class CreateProfile extends Controller{
       if (filledForm.hasErrors()) {
           return badRequest(createprofile.render(filledForm));
       } else {
-
           MultipartFormData body = request().body().asMultipartFormData();
           FilePart picture = body.getFile("image");
-
-
           UserProfile newProfile = filledForm.get();
           newProfile.image = picture.getFile();
           String filePath = "public/user_pictures/"+ newProfile.name + ".png";
           newProfile.saveImage(picture.getFile(), filePath);
           newProfile.userId = user.id;
           newProfile.save();
-
           return ok(viewprofile.render(user,newProfile));
-
       }
   }
 }

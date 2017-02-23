@@ -49,7 +49,6 @@ public class User extends Model {
 
     @OneToOne(mappedBy = "user")
     public UserProfile profile;
-
     
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 

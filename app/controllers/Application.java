@@ -135,10 +135,8 @@ public class Application extends Controller {
         } else {
             session("email", loginForm.get().email);
             User user = User.findByEmail(loginForm.get().email);
-            String id = user.id.toString();
-            session("id",id);
-            session("name",user.fullname);
-            System.out.println(id);
+            session("id", user.id.toString());
+            session("name", user.fullname);
             return GO_DASHBOARD;
         }
     }
