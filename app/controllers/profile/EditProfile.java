@@ -66,9 +66,7 @@ public class EditProfile extends Controller{
             String filePath = "public/user_pictures/" + profile.name + ".png";
             profile.saveImage(picture.getFile(), filePath);
            }
-
           profile.save();
-
           return GO_VIEW;
      }
 
@@ -77,9 +75,7 @@ public class EditProfile extends Controller{
 
   public Result view() {
       User user = User.findByEmail(session().get("email"));
-      UserProfile profile = UserProfile.find.where().eq("user_id", user.id).findUnique(); //byId(user.id);
-
-      //return GO_VIEW;
+      UserProfile profile = UserProfile.findByUserId(user.id);
       return(ok(viewprofile.render(user,profile)));
   }
 }
