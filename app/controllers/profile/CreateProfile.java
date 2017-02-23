@@ -43,8 +43,7 @@ public class CreateProfile extends Controller{
 
           UserProfile newProfile = filledForm.get();
           newProfile.image = picture.getFile();
-          String filePath = "app/assets/pictures";
-          filePath.concat(newProfile.name);
+          String filePath = "public/user_pictures/"+ newProfile.name + ".png";
           newProfile.saveImage(picture.getFile(), filePath);
           newProfile.userId = user.id;
           newProfile.save();

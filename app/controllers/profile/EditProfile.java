@@ -63,7 +63,7 @@ public class EditProfile extends Controller{
 
           if (picture != null && picture.getFile() != null) {
             profile.image = picture.getFile();
-            String filePath = "app/assets/user_pictures/" + profile.name + ".png";
+            String filePath = "public/user_pictures/" + profile.name + ".png";
             profile.saveImage(picture.getFile(), filePath);
            }
 
