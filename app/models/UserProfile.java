@@ -58,11 +58,9 @@ public class UserProfile extends Model{
 
   public static Model.Finder<Long, UserProfile> find = new Model.Finder<Long, UserProfile>(Long.class, UserProfile.class);
 
-  // public static UserProfile findByUserId(Long id) {
-  //
-  //     return find.where().eq("id", id).findUnique();
-  //
-  // }
+  public static UserProfile findByUserId(Long id) {
+      return find.where().eq("user_id", id).findUnique();
+  }
 
   public void set(UserProfile profile){
     name = profile.name;
@@ -83,8 +81,5 @@ public class UserProfile extends Model{
        System.out.println("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
 
      }
-
-
-
    }
 }

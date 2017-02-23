@@ -3,8 +3,8 @@
 @main(user,profile) {
 
     <h1> View Your Profile! </h1>
-    <img src= @routes.Assets.at(profile.name + ".png") />
-    <img src= @routes.Assets.at("cute_tiger_cub-wallpaper-1366x768.jpg") style="width:304px;height:228px;"/>
+    <img src= @routes.Assets.at("user_pictures/" + profile.name + ".png") style="width:304px;height:228px;" />
+  
     <div class="row">
         <div class="col col-lg-4">
             <ul class="nav nav-pills nav-stacked">
