@@ -43,7 +43,6 @@ public class ProfileTest extends WithApplication {
 
     @After
     public void LogOut() {
-
       route(fakeRequest("GET", routes.Application.logout().toString()));
     }
 }

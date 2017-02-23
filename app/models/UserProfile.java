@@ -23,28 +23,28 @@ public class UserProfile extends Model{
   public Long profileId;
 
 
-  /*@Constraints.Required
-  @Formats.NonEmpty*/
+  @Constraints.Required
+  @Formats.NonEmpty
   @Column(unique=true)
   public String name;
 
-  // @Constraints.Required
-  // @Formats.NonEmpty
-  // @Column(unique=true)
+  @Constraints.Required
+  @Formats.NonEmpty
+  @Column(unique=true)
   public String gender;
 
-  // @Constraints.Required
-  // @Formats.NonEmpty
-  // @Column(unique=true)
+  @Constraints.Required
+  @Formats.NonEmpty
+  @Column(unique=true)
   public String age;
 
-  // @Formats.NonEmpty
-  // @Column(unique=true)
+  @Formats.NonEmpty
+  @Column(unique=true)
   public File image;
 
-  // @Constraints.Required
-  // @Formats.NonEmpty
-  // @Column(unique=true)
+  @Formats.NonEmpty
+  @Constraints.Required
+  @Column(unique=true)
   public String bio;
 
 
@@ -62,24 +62,20 @@ public class UserProfile extends Model{
       return find.where().eq("user_id", id).findUnique();
   }
 
-  public void set(UserProfile profile){
+  public void set(UserProfile profile) {
     name = profile.name;
     age = profile.age;
     gender = profile.gender;
     bio = profile.bio;
    }
 
-   public void saveImage(File file, String filepath){
-
+   public void saveImage(File file, String filepath) {
      try {
-
         BufferedImage img = ImageIO.read(file);
         File outputfile = new File(filepath);
         ImageIO.write(img, "png", outputfile);
-
      } catch(IOException e) {
        System.out.println("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-
      }
    }
 }
