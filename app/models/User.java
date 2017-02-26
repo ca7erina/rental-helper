@@ -50,6 +50,9 @@ public Boolean validated = false;
 @OneToOne(mappedBy = "user")
 public UserProfile profile;
 
+@OneToOne(mappedBy = "user")
+public UserPreferences preferences;
+
 public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class );
 
 /**

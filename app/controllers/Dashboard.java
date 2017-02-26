@@ -4,7 +4,7 @@ import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.dashboard.index;
+import views.html.matches;
 
 /**
  * User: vuongnq
@@ -14,7 +14,7 @@ import views.html.dashboard.index;
 public class Dashboard extends Controller {
 
     public Result index() {
-        return ok(index.render(User.findByEmail(request().username())));
+        return ok(matches.render(User.findByEmail(request().username())));
 
     }
 }

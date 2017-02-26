@@ -1,0 +1,13 @@
+@(user: User, preferencesForm: Form[UserPreferences])
+
+@import helper._
+@main(user) {
+  <h1> Edit Your Prefernces! </h1>
+  @helper.form( action = controllers.routes.EditPreferences.submit(),  'id -> "preferencesForm"){
+    @helper.inputText(preferencesForm("locationPref"))
+    @helper.inputText(preferencesForm("studentPref"))
+    @helper.inputText(preferencesForm("genderPref"))
+    @helper.inputText(preferencesForm("userId"), 'style -> "display: none")
+    <input type="submit" class="btn primary" value="Update">
+  }
+}
