@@ -1,16 +1,4 @@
-@(user: User, profileForm: Form[UserProfile])
-@import helper._
-
-@main(user) {
-    <h1> Your Profile! </h1>
-    @helper.form( action = controllers.profile.routes.EditProfile.submit(), 'enctype -> "multipart/form-data",
-'id -> "profileForm"){
-      @helper.inputText(profileForm("name"))
-      @helper.inputFile(profileForm("image"))
-      @helper.inputText(profileForm("gender"))
-      @helper.inputText(profileForm("age"))
-      @helper.inputText(profileForm("bio"))
-      @helper.inputText(profileForm("userId"), 'style -> "display: none")
-      <input type = "submit" class = "btn primary" value = "Update">
-    }
-}
+@(user: User, profileForm: Form[UserProfile]) @import helper._ @main(user) {
+<h1> Your Profile! </h1> @helper.form( action = controllers.profile.routes.EditProfile.submit(), 'enctype -> "multipart/form-data", 'id -> "profileForm"){ @helper.inputText(profileForm("name")) @helper.inputFile(profileForm("image")) @helper.inputText(profileForm("gender"))
+@helper.inputText(profileForm("age")) @helper.inputText(profileForm("bio")) @helper.inputText(profileForm("userId"), 'style -> "display: none")
+<input type="submit" class="btn primary" value="Update"> } }
