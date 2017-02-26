@@ -38,7 +38,6 @@ create table user_profile (
   constraint uq_user_profile_name unique (name),
   constraint uq_user_profile_gender unique (gender),
   constraint uq_user_profile_age unique (age),
-  constraint uq_user_profile_image unique (image),
   constraint uq_user_profile_bio unique (bio),
   constraint uq_user_profile_id unique (id),
   constraint uq_user_profile_user_id unique (user_id),

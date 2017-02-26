@@ -38,8 +38,6 @@ public String gender;
 @Column(unique=true)
 public String age;
 
-@Formats.NonEmpty
-@Column(unique=true)
 public File image;
 
 @Formats.NonEmpty
