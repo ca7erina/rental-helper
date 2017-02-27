@@ -25,24 +25,24 @@ public Long profileId;
 
 @Constraints.Required
 @Formats.NonEmpty
-@Column(unique=true)
+@Column
 public String name;
 
 @Constraints.Required
 @Formats.NonEmpty
-@Column(unique=true)
+@Column
 public String gender;
 
 @Constraints.Required
 @Formats.NonEmpty
-@Column(unique=true)
+@Column
 public String age;
 
 public File image;
 
 @Formats.NonEmpty
 @Constraints.Required
-@Column(unique=true)
+@Column
 public String bio;
 
 

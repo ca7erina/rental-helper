@@ -73,4 +73,11 @@ public Result view() {
         UserProfile profile = UserProfile.findByUserId(user.id);
         return(ok(viewprofile.render(user,profile)));
 }
+
+public Result viewOther(String username) {
+        User user = User.findByFullname(username);
+        UserProfile profile = UserProfile.findByUserId(user.id);
+        return(ok(viewprofile.render(user,profile)));
+
+}
 }

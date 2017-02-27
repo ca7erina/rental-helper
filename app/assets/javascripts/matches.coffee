@@ -8,9 +8,11 @@ getMatchedListData = () ->
       title = "<h1>Matched Renters</h1>"
       listBody = ""
       $.each data, (index, user) ->
+        uri = "/viewprofile/" + user.fullname
+        path = "/assets/user_pictures/" + user.fullname + ".png"
         listCell = "<div class='col-sm-" + "6" + " text-center'>" +
         "<figure class= 'profile'> " +
-        "<img class=' mx-auto d-block img-rounded img-responsive img-fluid' src='/assets/images/temp.png' >" +
+        "<a href='" + uri + "'><img class=' mx-auto d-block img-rounded img-responsive img-fluid' src='" + path + "' ></a>" +
         "<figcaption>" + user.fullname + "</figcaption> " +
         "</figure></div>"
         listBody += listCell
@@ -71,5 +73,3 @@ getNewSuggestionListData = () ->
   setTimeout getNewSuggestionListData, 10000
 $ ->
   getNewSuggestionListData()
-
-

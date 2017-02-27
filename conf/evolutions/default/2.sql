@@ -67,7 +67,13 @@ VALUES
       '21',
       'Hi',
        2
-    );
+      ),
+      (user_profile_seq.nextval,
+      'Vuong',
+      'Male',
+      '45',
+      'I like coding',
+       1);
 
 # --- !Downs
 
