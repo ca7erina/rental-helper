@@ -62,7 +62,7 @@ public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.
  * @return a user
  */
 public static User findByEmail(String email) {
-        return find.where().eq("email", email).findUnique();
+    return find.where().eq("email", email).findUnique();
 }
 
 /**
@@ -72,7 +72,7 @@ public static User findByEmail(String email) {
  * @return a user
  */
 public static User findByFullname(String fullname) {
-        return find.where().eq("fullname", fullname).findUnique();
+    return find.where().eq("fullname", fullname).findUnique();
 }
 
 /**
@@ -82,8 +82,8 @@ public static User findByFullname(String fullname) {
  * @return List of users
  */
 public static List<User> findSimilarityFullname(String email) {
-        String fullname = User.findByEmail(email).fullname;
-        return find.where().ilike("fullname", "%" + fullname + "%").setMaxRows(User.MAX_LIMIT_ROWS).findList();
+    String fullname = User.findByEmail(email).fullname;
+    return find.where().ilike("fullname", "%" + fullname + "%").setMaxRows(User.MAX_LIMIT_ROWS).findList();
 }
 
 /**
@@ -93,7 +93,7 @@ public static List<User> findSimilarityFullname(String email) {
  * @return a user if the confirmation token is found, null otherwise.
  */
 public static User findByConfirmationToken(String token) {
-        return find.where().eq("confirmationToken", token).findUnique();
+    return find.where().eq("confirmationToken", token).findUnique();
 }
 
 /**
@@ -106,20 +106,20 @@ public static User findByConfirmationToken(String token) {
  */
 public static User authenticate(String email, String clearPassword) throws AppException {
 
-        // get the user with email only to keep the salt password
-        User user = find.where().eq("email", email).findUnique();
-        if (user != null) {
-                // get the hash password from the salt + clear password
-                if (Hash.checkPassword(clearPassword, user.passwordHash)) {
-                        return user;
-                }
+    // get the user with email only to keep the salt password
+    User user = find.where().eq("email", email).findUnique();
+    if (user != null) {
+        // get the hash password from the salt + clear password
+        if (Hash.checkPassword(clearPassword, user.passwordHash)) {
+            return user;
         }
-        return null;
+    }
+    return null;
 }
 
 public void changePassword(String password) throws AppException {
-        this.passwordHash = Hash.createPassword(password);
-        this.save();
+    this.passwordHash = Hash.createPassword(password);
+    this.save();
 }
 
 /**
@@ -129,14 +129,14 @@ public void changePassword(String password) throws AppException {
  * @throws AppException App Exception
  */
 public static boolean confirm(User user) throws AppException {
-        if (user == null) {
-                return false;
-        }
+    if (user == null) {
+        return false;
+    }
 
-        user.confirmationToken = null;
-        user.validated = true;
-        user.save();
-        return true;
+    user.confirmationToken = null;
+    user.validated = true;
+    user.save();
+    return true;
 }
 
 }

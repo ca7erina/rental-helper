@@ -25,18 +25,6 @@ public class Matches extends Controller {
     //TODO
     public Result getMatchedList() {
         List<User> matchedUsers = new ArrayList<>();
-        //fake data
-        // User fake1 = new User();
-        // fake1.fullname = "Fake One";
-        // fake1.email = "fake1@gmail.com";
-        // fake1.id = 101L;
-        //
-        // User fake2 = new User();
-        // fake2.fullname = "Fake Two";
-        // fake2.email = "fake2@gmail.com";
-        // fake2.id = 102L;
-        //
-
         User user_1 = User.findByEmail("qvuong2007@gmail.com");
         User user_2 = User.findByEmail("admin@gmail.com");
         matchedUsers.add(0, user_1);

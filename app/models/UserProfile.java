@@ -56,23 +56,23 @@ public Long userId;
 public static Model.Finder<Long, UserProfile> find = new Model.Finder<Long, UserProfile>(Long.class, UserProfile.class );
 
 public static UserProfile findByUserId(Long id) {
-        return find.where().eq("user_id", id).findUnique();
+    return find.where().eq("user_id", id).findUnique();
 }
 
 public void set(UserProfile profile) {
-        name = profile.name;
-        age = profile.age;
-        gender = profile.gender;
-        bio = profile.bio;
+    name = profile.name;
+    age = profile.age;
+    gender = profile.gender;
+    bio = profile.bio;
 }
 
 public void saveImage(File file, String filepath) {
-        try {
-                BufferedImage img = ImageIO.read(file);
-                File outputfile = new File(filepath);
-                ImageIO.write(img, "png", outputfile);
-        } catch(IOException e) {
-                System.out.println("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-        }
+    try {
+        BufferedImage img = ImageIO.read(file);
+        File outputfile = new File(filepath);
+        ImageIO.write(img, "png", outputfile);
+    } catch(IOException e) {
+        System.out.println("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    }
 }
 }

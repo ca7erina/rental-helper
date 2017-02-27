@@ -26,33 +26,29 @@ public class EditPreferences extends Controller {
 public Form<UserPreferences> preferencesForm = form( UserPreferences.class );
 
 public Result index() {
-        User user = User.findByEmail(session().get("email"));
-        UserPreferences preferences = UserPreferences.findByUserId(user.id);
-        if (preferences != null) {
-          preferencesForm = preferencesForm.fill(preferences);
-          System.out.println( preferences.locationPref );
-        } else {
-          System.out.println("Nullllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
-        }
-        return ok(editpreferences.render(user,preferencesForm));
+    User user = User.findByEmail(session().get("email"));
+    UserPreferences preferences = UserPreferences.findByUserId(user.id);
+    if (preferences != null) {
+      preferencesForm = preferencesForm.fill(preferences);
+    }
+    return ok(editpreferences.render(user,preferencesForm));
 
 }
 
 public Result submit() {
-        User user = User.findByEmail(session().get("email"));
-        Form<UserPreferences> filledForm = preferencesForm.bindFromRequest();
-        UserPreferences preferences = UserPreferences.findByUserId(user.id);
+    User user = User.findByEmail(session().get("email"));
+    Form<UserPreferences> filledForm = preferencesForm.bindFromRequest();
+    UserPreferences preferences = UserPreferences.findByUserId(user.id);
 
-        if (preferences != null) {
-          preferences.set(filledForm.get());
-          preferences.save();
-        } else {
-          UserPreferences newPreferences = new UserPreferences();
-          newPreferences.set(filledForm.get());
-          newPreferences.userId = user.id;
-          newPreferences.save();
-        }
-        return redirect(controllers.routes.EditPreferences.index());
-
+    if (preferences != null) {
+      preferences.set(filledForm.get());
+      preferences.save();
+    } else {
+      UserPreferences newPreferences = new UserPreferences();
+      newPreferences.set(filledForm.get());
+      newPreferences.userId = user.id;
+      newPreferences.save();
+    }
+    return redirect(controllers.routes.EditPreferences.index());
 }
 }
