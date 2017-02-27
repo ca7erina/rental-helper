@@ -55,12 +55,17 @@ public class User extends Model {
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
-    /**
-     * Retrieve a user from an email.
-     *
-     * @param email email to search
-     * @return a user
-     */
+/**
+ * Retrieve a user from an email.
+ *
+ * @param email email to search
+ * @return a user
+ */
+
+    public static User findById(Long id) {
+        return find.where().eq("id", id).findUnique();
+    }
+
     public static User findByEmail(String email) {
         return find.where().eq("email", email).findUnique();
     }

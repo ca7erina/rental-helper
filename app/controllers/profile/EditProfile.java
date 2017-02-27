@@ -33,8 +33,6 @@ public class EditProfile extends Controller {
             return badRequest(editprofile.render(user, profileForm));
         } else {
 
-            MultipartFormData body = request().body().asMultipartFormData();
-            FilePart picture = null;
 
             if (body != null && body.getFile("image") != null) {
                 picture = body.getFile("image");
@@ -63,14 +61,12 @@ public class EditProfile extends Controller {
     public Result view() {
         User user = User.findByEmail(session().get("email"));
         UserProfile profile = UserProfile.findByUserId(user.id);
-
         return (ok(viewprofile.render(user, profile)));
     }
 
     public Result viewOther(String username) {
-        User user = User.findByFullname(username);
+        User user = User.findByFullname(username.replace("."," "));
         UserProfile profile = UserProfile.findByUserId(user.id);
-
-        return (ok(viewprofile.render(user, profile)));
+        return(ok(viewprofile.render(user,profile)));
     }
 }

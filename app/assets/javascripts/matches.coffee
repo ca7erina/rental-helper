@@ -8,8 +8,8 @@ getMatchedListData = () ->
       title = "<h1>Matched Renters</h1>"
       listBody = ""
       $.each data, (index, user) ->
-        uri = "/viewprofile/" + user.fullname
-        path = "/assets/user_pictures/" + user.fullname + ".png"
+        uri = "/viewprofile/" + user.fullname.replace(/\s/g, ".")
+        path = "/assets/user_pictures/" + user.email + ".png"
         listCell = "<div class='col-sm-" + "6" + " text-center'>" +
         "<figure class= 'profile'> " +
         "<a href='" + uri + "'><img class=' mx-auto d-block img-rounded img-responsive img-fluid' src='" + path + "' ></a>" +
@@ -36,7 +36,7 @@ getWaitingListData = () ->
       $.each data, (index, user) ->
         tableRow = "<tr><td>" + user.email + "</td>" +
         "<td>" + user.fullname + "</td>"+
-        "<td><button type='button' class='btn btn-info btn-xs'  title='Cancle Request' userid='" + user.id + "'><i class='icon-trash'></i> <strong>" + "Cancle" + "</strong></button>" + "</td>" +
+        "<td><button type='button' class='btn btn-info btn-xs'  title='Cancle Request' userid='" + user.id + "'><i class='icon-trash'></i> <strong>" + "Cancel" + "</strong></button>" + "</td>" +
         "</tr>"
         tableBody += tableRow
       if tableBody.length is 0 then tableBody = """<tr><td colspan="2"><strong>No results</strong></td></tr>"""
@@ -58,9 +58,11 @@ getNewSuggestionListData = () ->
       title = "<h1>New Suggestions</h1>"
       listBody = ""
       $.each data, (index, user) ->
+        uri = "/viewprofile/" + user.fullname.replace(/\s/g, ".")
+        path = "/assets/user_pictures/" + user.email + ".png"
         listCell = "<div class='col-sm-" + "2" + " text-center'>" +
         "<figure class= 'profile'> " +
-        "<img class=' mx-auto d-block img-rounded img-responsive img-fluid descrption-tooltip' src='/assets/images/temp.png' title='description' data-toggle='tooltip' data-placement='bottom'>" +
+        "<a href='" + uri +  "'>'<img class=' mx-auto d-block img-rounded img-responsive img-fluid descrption-tooltip' src='" + path + "' title='description' data-toggle='tooltip' data-placement='bottom'></a>" +
         "<figcaption>" + user.fullname + "</figcaption> " +
         "<figcaption><button type='button' class='btn btn-danger btn-xs' title='description' userid='" + user.id + "'><i class='icon-like'></i> <strong>"+ "Like" +"</strong></button>&nbsp;&nbsp;<button type='button' class='btn btn-success btn-xs' title='description' userid='" + user.id + "'><i class='icon-unlike'></i> <strong>" + "UnLike" + "</strong></button></figcaption> " +
         "</figure></div>"

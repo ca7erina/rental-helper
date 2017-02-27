@@ -4,7 +4,7 @@
 @main(user) {
   <h1> Edit Your Preferences! </h1>
   @helper.form( action = controllers.routes.EditPreferences.submit(),  'id -> "preferencesForm"){
-    @helper.select(preferencesForm("locationPref"),helper.options(Seq("Dublin 1","Dublin 2","Dublin 4","Dublin 6")), '_label -> "Where would you like to live?", '_default -> "--None--")
+    @helper.select(preferencesForm("locationPref"),helper.options(Seq("Dublin 1","Dublin 2","Dublin 4","Dublin 6")), '_label -> "Where would you like to live?", '_default -> preferencesForm("locationPref"))
     @helper.select(preferencesForm("studentPref"),helper.options(Seq("Student","Professional")), '_label -> "Would you prefer to live with Student or Professional?", '_default -> "--None--")
     @helper.select(preferencesForm("genderPref"),helper.options(Seq("Female","Male")), '_label -> "Would you prefer to live with Male or Female?", '_default -> "--None--")
     <!-- @helper.inputText(preferencesForm("userId"), 'style -> "display: none") -->
