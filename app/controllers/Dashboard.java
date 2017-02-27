@@ -15,6 +15,5 @@ public class Dashboard extends Controller {
 
     public Result index() {
         return ok(matches.render(User.findByEmail(request().username())));
-
     }
 }
