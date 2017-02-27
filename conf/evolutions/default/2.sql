@@ -53,6 +53,28 @@ VALUES
     1)
     ;
 
+    INSERT INTO user_profile (
+      profile_id,
+      name,
+      gender,
+      age,
+      bio,
+      user_id)
+    VALUES
+      (user_profile_seq.nextval,
+      'Admin',
+      'Male',
+      '21',
+      'Hi',
+       2
+      ),
+      (user_profile_seq.nextval,
+      'Vuong',
+      'Male',
+      '45',
+      'I like coding',
+       1);
+
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;

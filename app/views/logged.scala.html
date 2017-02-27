@@ -5,10 +5,16 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @user.fullname <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="@controllers.account.settings.routes.Index.index()"><i class="fa fa-wrench"></i> @Messages("My Profiles")</a></li>
                 <li class="divider"></li>
-                <li><a href="@controllers.account.settings.routes.Match.index()"><i class="fa fa-wrench"></i> @Messages("account.match.setting")</a></li>
+                <li><a href="@controllers.profile.routes.EditProfile.view()"><i class="fa fa-wrench"></i> @Messages("My Profile")</a></li>
                 <li class="divider"></li>
+                <li><a href="@controllers.profile.routes.EditProfile.index()"><i class="fa fa-wrench"></i> @Messages("Edit Profile")</a></li>
+                <li class="divider"></li>
+                <li><a href="@controllers.routes.EditPreferences.index()"><i class="fa fa-wrench"></i> @Messages("My Preferences")</a></li>
+                <li class="divider"></li>
+                <li><a href="@controllers.account.settings.routes.Match.index()"><i class="fa fa-wrench"></i> @Messages("Settings")</a></li>
+                <li class="divider"></li>
+                <!-- <li><a href="@controllers.account.settings.routes.Index.index()"><i class="fa fa-wrench"></i> @Messages("Settings")</a></li> -->
                 <li><a href="@routes.Application.logout()"><i class="fa fa-power-off"></i> @Messages("logout")</a></li>
             </ul>
         </li>

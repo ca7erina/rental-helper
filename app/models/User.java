@@ -1,14 +1,15 @@
 package models;
 
+import com.avaje.ebean.Model;
 import models.utils.AppException;
 import models.utils.Hash;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import com.avaje.ebean.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +47,12 @@ public class User extends Model {
     @Formats.NonEmpty
     public Boolean validated = false;
 
-    // -- Queries (long id, user.class)
+    @OneToOne(mappedBy = "user")
+    public UserProfile profile;
+
+    @OneToOne(mappedBy = "user")
+    public UserPreferences preferences;
+
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
     /**
@@ -108,6 +114,7 @@ public class User extends Model {
                 return user;
             }
         }
+
         return null;
     }
 
@@ -130,6 +137,7 @@ public class User extends Model {
         user.confirmationToken = null;
         user.validated = true;
         user.save();
+
         return true;
     }
 

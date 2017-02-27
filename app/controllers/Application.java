@@ -34,9 +34,12 @@ public class Application extends Controller {
     public Result index() {
         // Check that the email matches a confirmed user before we redirect
         String email = ctx().session().get("email");
+
+
         if (email != null) {
             User user = User.findByEmail(email);
             if (user != null && user.validated) {
+
                 return GO_DASHBOARD;
             } else {
                 Logger.debug("Clearing invalid session credentials");
@@ -131,6 +134,9 @@ public class Application extends Controller {
             return badRequest(index.render(registerForm, loginForm));
         } else {
             session("email", loginForm.get().email);
+            User user = User.findByEmail(loginForm.get().email);
+            session("id", user.id.toString());
+            session("name", user.fullname);
             return GO_DASHBOARD;
         }
     }

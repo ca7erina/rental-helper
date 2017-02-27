@@ -36,8 +36,19 @@ GET     /email/:token               controllers.account.settings.Email.validateE
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
+
 # Matches Page
 GET     /matches                       controllers.Matches.index()
 GET     /matches/getmatchedlist        controllers.Matches.getMatchedList()
 GET     /matches/getwaitinglist        controllers.Matches.getWaitingList()
 GET     /matches/getnewsuggestionlist  controllers.Matches.getNewSuggestionMatches()
+GET     /mypreferences                 controllers.EditPreferences.index()
+POST    /mypreferences                 controllers.EditPreferences.submit()
+
+GET     /createprofile              controllers.profile.CreateProfile.index()
+POST    /createprofile              controllers.profile.CreateProfile.submit()
+
+GET     /editprofile                controllers.profile.EditProfile.index()
+POST    /editprofile                controllers.profile.EditProfile.submit()
+GET     /viewprofile                controllers.profile.EditProfile.view()
+GET     /viewprofile/*user          controllers.profile.EditProfile.viewOther(user)

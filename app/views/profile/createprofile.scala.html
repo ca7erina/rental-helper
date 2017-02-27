@@ -1,0 +1,13 @@
+ @(profileForm: Form[UserProfile])
+ @import helper._
+ @main(null, null) {
+  <h1> Create Your Profile! </h1>
+  @helper.form( action = controllers.profile.routes.CreateProfile.submit(), 'enctype -> "multipart/form-data", 'id -> "profileForm"){
+    @helper.inputFile(profileForm("image"))
+    @helper.inputText(profileForm("name"))
+    @helper.inputText(profileForm("gender"))
+    @helper.inputText(profileForm("age"))
+    @helper.inputText(profileForm("bio"))
+    <input type="submit" class="btn primary" value="Create">
+  }
+}
