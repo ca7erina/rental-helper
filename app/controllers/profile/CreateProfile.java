@@ -21,21 +21,22 @@ public class CreateProfile extends Controller {
     }
 
 
-public Result submit() {
-    User user = User.findByEmail(session().get("email"));
-    Form<UserProfile> filledForm = profileForm.bindFromRequest();
+    public Result submit() {
+        User user = User.findByEmail(session().get("email"));
+        Form<UserProfile> filledForm = profileForm.bindFromRequest();
 
-    if (filledForm.hasErrors()) {
-        return badRequest(createprofile.render(filledForm));
-    } else {
-        MultipartFormData body = request().body().asMultipartFormData();
-        FilePart picture = body.getFile("image");
-        UserProfile newProfile = filledForm.get();
-        newProfile.image = picture.getFile();
-        String filePath = "public/user_pictures/"+ user.email + ".png";
-        newProfile.saveImage(picture.getFile(), filePath);
-        newProfile.userId = user.id;
-        newProfile.save();
-        return ok(viewprofile.render(user,newProfile));
+        if (filledForm.hasErrors()) {
+            return badRequest(createprofile.render(filledForm));
+        } else {
+            MultipartFormData body = request().body().asMultipartFormData();
+            FilePart picture = body.getFile("image");
+            UserProfile newProfile = filledForm.get();
+            newProfile.image = picture.getFile();
+            String filePath = "public/user_pictures/"+ user.email + ".png";
+            newProfile.saveImage(picture.getFile(), filePath);
+            newProfile.userId = user.id;
+            newProfile.save();
+            return ok(viewprofile.render(user,newProfile));
+        }
     }
 }

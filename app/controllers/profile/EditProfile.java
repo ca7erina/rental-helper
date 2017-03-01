@@ -32,8 +32,8 @@ public class EditProfile extends Controller {
         if (filledForm.hasErrors()) {
             return badRequest(editprofile.render(user, profileForm));
         } else {
-
-
+            MultipartFormData body = request().body().asMultipartFormData();
+            FilePart picture = body.getFile("image");
             if (body != null && body.getFile("image") != null) {
                 picture = body.getFile("image");
             }
