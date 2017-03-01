@@ -71,6 +71,20 @@ VALUES
     'c4210a7a-7ca1-4ff7-931d-6cc5fb9cfa29',
     '$2a$10$5xl5Bry4SFMKSpUN/8JKEeHcksAv7mVky3ZuxYVVh04RCa1He.yN6',
     NOW(),
+    1),
+    (user_seq.nextval,
+    'homer@gmail.com',
+    'Homer Simpson',
+    'c4210a7a-7ca1-4ff7-931d-6cc5fb9cfa29',
+    '$2a$10$5xl5Bry4SFMKSpUN/8JKEeHcksAv7mVky3ZuxYVVh04RCa1He.yN6',
+    NOW(),
+    1),
+    (user_seq.nextval,
+    'marge@gmail.com',
+    'Marge Simpson',
+    'c4210a7a-7ca1-4ff7-931d-6cc5fb9cfa29',
+    '$2a$10$5xl5Bry4SFMKSpUN/8JKEeHcksAv7mVky3ZuxYVVh04RCa1He.yN6',
+    NOW(),
     1)
     ;
 
@@ -112,7 +126,20 @@ VALUES
     'Male',
     '12',
     'Im a dog',
-    9);
+    9),
+    (user_profile_seq.nextval,
+    'Homer Simpson',
+    'Male',
+    '40',
+    'Doh!!',
+    10),
+    (user_profile_seq.nextval,
+    'Marge Simpson',
+    'Female',
+    '40',
+    'I hate Homer!!',
+    11)
+    ;
 
 INSERT INTO user_preferences (
     preference_id,
@@ -137,10 +164,20 @@ VALUES
     'Student',
     8),
     (user_preferences_seq.nextval,
-    'Dublin 2',
+    'Dublin 1',
     'male',
     'Student',
-    9);
+    9),
+    (user_preferences_seq.nextval,
+    'Dublin 1',
+    'female',
+    'Professional',
+    10),
+    (user_preferences_seq.nextval,
+    'Dublin 1',
+    'male',
+    'Professional',
+    11);
 
 
 

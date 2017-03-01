@@ -6,6 +6,7 @@ import play.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import models.UserPreferences;
+import models.UserProfile;
 
 /**
  * Created by vuongnguyen on 14/02/2017.
@@ -30,7 +31,11 @@ public class MatcherService {
         List<UserPreferences> simPreferences = UserPreferences.find.where().eq("locationPref",preferences.locationPref).findList();
         List<User> simUsers = new ArrayList<>();
         for(int i=0; i<simPreferences.size(); ++i) {
-            simUsers.add(i,User.findById(simPreferences.get(i).userId));
+            User otherUser = User.findById(simPreferences.get(i).userId);
+            // String otherGender = UserProfile.findByUserId(otherUser.id).gender;
+            if (otherUser.id != user.id &&  preferences.genderPref == otherGender) {
+                simUsers.add(i, otherUser);
+            }
         }
         return simUsers;
     }
