@@ -1,27 +1,29 @@
 @(user: User, profile: UserProfile)
 
 @main(user,profile) {
-  <h1> View Your Profile! </h1>
-  <img src= @routes.Assets.at( "user_pictures/" + user.email + ".png") style="width:304px;height:228px;" />
 
-  <div class="row">
-      <div class="col col-lg-4">
-          <ul class="nav nav-pills nav-stacked">
-              <li> @profile.name</li>
-          </ul>
-          <ul class="nav nav-pills nav-stacked">
-              <li> @profile.age</li>
-          </ul>
-          <ul class="nav nav-pills nav-stacked">
-              <li> @profile.gender</li>
-          </ul>
-          <ul class="nav nav-pills nav-stacked">
-              <li> @profile.bio</li>
-          </ul>
-          
-      </div>
-      <div class="col col-lg-8">
+    <div class=container>
 
-      </div>
-  </div>
+
+        <div class="row">
+            <img src= @routes.Assets.at( "user_pictures/" + user.email + ".png") class="img-circle center-block" style="width:304px;height:228px;" />
+            <div class="row text-center">
+                <h1> @profile.name </h1>
+            </div>
+            <table class = "table table-striped">
+                <tr>
+                    <td> Age: </td>
+                    <td> @profile.age </td>
+                </tr>
+                <tr>
+                    <td> Gender: </td>
+                    <td> @profile.gender </td>
+                </tr>
+                <tr>
+                    <td> About @profile.name : </td>
+                    <td> @profile.bio </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 }
