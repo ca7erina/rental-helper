@@ -72,6 +72,6 @@ getNewSuggestionListData = () ->
       $("#newSuggestionIterator").trigger("update", true)
     error: (jqXHR, textStatus, errorThrown) ->
       window.location.href = "/";
-  setTimeout getNewSuggestionListData, 10000
+  setTimeout getNewSuggestionListData, 10
 $ ->
   getNewSuggestionListData()
