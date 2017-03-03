@@ -1,5 +1,8 @@
 # Rental Helper
 This project is a group work of people at Trinity College Dublinto build web application that helps people find accommodation in group easily.
+
+# Status
+[![Build Status](https://travis-ci.org/vn09/rental-helper.png)](https://travis-ci.org/vn09/rental-helper)
 # How to run
 1. Install `sbt` package:
    + Ubuntu: See [install-requirements.sh](scripts/install-requirements.sh)

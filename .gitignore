@@ -13,3 +13,5 @@ db
 .sbtserver
 out
 documentation/
+project/play-fork-run.sbt
+project/sbt-ui.sbt

@@ -17,11 +17,13 @@ libraryDependencies ++= Seq(
 )
 
 resolvers ++= Seq(
-    "Apache" at "http://repo1.maven.org/maven2/",
-    "jBCrypt Repository" at "http://repo1.maven.org/maven2/org/",
-    "Sonatype OSS Snasphots" at "http://oss.sonatype.org/content/repositories/snapshots",
-    "Typesafe Ivy releases" at "https://repo.typesafe.com/typesafe/ivy-releases"
+  "Apache" at "http://repo1.maven.org/maven2/",
+  "jBCrypt Repository" at "http://repo1.maven.org/maven2/org/",
+  "Sonatype OSS Snasphots" at "http://oss.sonatype.org/content/repositories/snapshots",
+  "Typesafe Ivy releases" at "https://repo.typesafe.com/typesafe/ivy-releases"
 )
+
+resolvers += "Typesafe Bintray Ivy releases" at "https://dl.bintray.com/typesafe/ivy-releases"
 
 routesGenerator := InjectedRoutesGenerator
 
