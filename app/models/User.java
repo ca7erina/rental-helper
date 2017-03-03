@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+
 
 /**
  * User: vuongnq
@@ -55,6 +57,9 @@ public class User extends Model {
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
+    public List<User> requestedUsers;
+    public List<User> incomingRequests;
+    public List<User> matchedUsers;
 /**
  * Retrieve a user from an email.
  *
@@ -144,6 +149,55 @@ public class User extends Model {
         user.save();
 
         return true;
+    }
+
+    public List<User> getMatchedUsers() {
+        if ( matchedUsers == null) {
+            matchedUsers = new ArrayList<User>();
+        }
+        return matchedUsers;
+    }
+
+    public void addMatchedUser( User requestedUser) {
+        if ( matchedUsers == null) {
+            matchedUsers = new ArrayList<User>();
+        }
+        matchedUsers.add(requestedUser);
+    }
+
+    public List<User> getRequestedUsers() {
+        if ( requestedUsers == null) {
+            requestedUsers = new ArrayList<User>();
+        }
+        return requestedUsers;
+    }
+
+    public void addRequestedUser( User requestedUser) {
+        if ( requestedUsers == null) {
+            requestedUsers = new ArrayList<User>();
+        }
+        requestedUsers.add(requestedUser);
+    }
+
+    public void removeRequestedUser( User requestedUser) {
+        requestedUsers.remove(requestedUser);
+    }
+
+    public List<User> getIncomingRequests() {
+        if ( incomingRequests == null) {
+            incomingRequests = new ArrayList<User>();
+        }
+        return incomingRequests;
+    }
+    public void addIncomingRequest( User requestingUser) {
+        if ( incomingRequests == null) {
+            incomingRequests = new ArrayList<User>();
+        }
+        incomingRequests.add(requestingUser);
+    }
+
+    public void removeIncomingRequest( User requestingUser) {
+        incomingRequests.remove(requestingUser);
     }
 
 }

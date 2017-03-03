@@ -2,7 +2,7 @@ package controllers.core;
 
 import models.User;
 import play.Logger;
-
+import play.mvc.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import models.UserPreferences;
@@ -18,7 +18,7 @@ import models.UserProfile;
  * + Matcher: list of all matching user to the current one
  */
 
-public class MatcherService {
+public class MatcherService extends Controller {
 
     /**
      *
@@ -47,9 +47,10 @@ public class MatcherService {
      * @param username email to search the waiting users that haven't responded to the user request
      * @return List of waiting users
      */
-    public static List<User> getWaitingForUsers(String username) {
-        return User.findSimilarityFullname(username);
-    }
+    // public static List<User> getWaitingForUsers() {
+    //     User user = User.findByEmail(session().get("email"));
+    //     return user.requestedUsers;
+    // }
 
     /**
      *

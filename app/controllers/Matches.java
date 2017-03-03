@@ -36,63 +36,68 @@ public class Matches extends Controller {
 
     //TODO
     public Result getWaitingList() {
-        List<User> waitingReplyFromUsers = new ArrayList<>();
-        //fake data
-        User fake3 = new User();
-        fake3.fullname = "Fake Three";
-        fake3.email = "fake3@gmail.com";
-        fake3.id = 103L;
+        User user = User.findByEmail(session().get("email"));
+        // System.out.println("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCCCCCCCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKKKKKKKKKKKK");
+        // System.out.println(user.requestedUsers);
+        // System.out.println(user.requestedUsers.get(0).fullname);
 
-        User fake4 = new User();
-        fake4.fullname = "Fake Four";
-        fake4.email = "fake4@gmail.com";
-        fake4.id = 104L;
-        waitingReplyFromUsers.add(0, fake3);
-        waitingReplyFromUsers.add(1, fake4);
 
-        return ok(toJson(waitingReplyFromUsers));
+        return ok(toJson(user.getRequestedUsers()));
     }
 
     //TODO
     public Result getNewSuggestionMatches() {
         User user = User.findByEmail(session().get("email"));
         List<User> newMatches = MatcherService.getMatchedUsers(user.fullname);
-
-
-
-
-        //fake data
-        // User fake5 = new User();
-        // fake5.fullname = "Fake Five";
-        // fake5.email = "fake5@gmail.com";
-        // fake5.id = 105L;
-        // User fake6 = new User();
-        // fake6.fullname = "Fake Six";
-        // fake6.email = "fake6@gmail.com";
-        // fake6.id = 106L;
-        // newMatches.add(0, fake5);
-        // newMatches.add(1, fake6);
-        //
-        // User fake7 = new User();
-        // fake7.fullname = "Fake Seven";
-        // fake7.email = "fake7@gmail.com";
-        // fake7.id = 107L;
-        // User fake8 = new User();
-        // fake8.fullname = "Fake Eight";
-        // fake8.email = "fake8@gmail.com";
-        // fake8.id = 108L;
-        // User fake9 = new User();
-        // fake9.fullname = "Fake Nine";
-        // fake9.email = "fake9@gmail.com";
-        // fake9.id = 109L;
-        // User fake10 = new User();
-        // fake10.fullname = "Fake Ten";
-        // fake10.email = "fake10@gmail.com";
-        // fake10.id = 110L;
-        // newMatches.add(2, fake7);
-        // newMatches.add(3, fake8);
-        // newMatches.add(4, fake9);
-        // newMatches.add(5, fake10);
         return ok(toJson(newMatches));
     }
+
+    public Result getNewRequestList() {
+        User user = User.findByEmail(session().get("email"));
+        // List<User> newRequests = user.incomingRequests;
+        return ok(toJson(user.getIncomingRequests()));
+    }
+
+    public Result sendMatchRequest(String username) {
+        User user = User.findByEmail(session().get("email"));
+        User requestedUser = User.findByFullname(username.replace("."," "));
+        user.addRequestedUser(requestedUser);
+        requestedUser.addIncomingRequest(user);
+        user.save();
+        requestedUser.save();
+        return index();
+    }
+
+    public Result cancelMatchRequest(String username) {
+        User user = User.findByEmail(session().get("email"));
+        User requestedUser = User.findByFullname(username.replace("."," "));
+        user.removeRequestedUser(requestedUser);
+        requestedUser.removeIncomingRequest(user);
+        user.save();
+        requestedUser.save();
+        return index();
+    }
+
+    public Result confirmMatch(String username) {
+        User user = User.findByEmail(session().get("email"));
+        User requestedUser = User.findByFullname(username.replace("."," "));
+        user.addMatchedUser(requestedUser);
+        requestedUser.addMatchedUser(user);
+        user.save();
+        requestedUser.save();
+        return index();
+    }
+
+    public Result rejectMatch(String username) {
+        User user = User.findByEmail(session().get("email"));
+        User requestedUser = User.findByFullname(username.replace("."," "));
+        user.removeRequestedUser(requestedUser);
+        requestedUser.removeIncomingRequest(user);
+        user.save();
+        requestedUser.save();
+        return index();
+    }
+
+
+
 }
