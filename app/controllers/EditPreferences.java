@@ -25,15 +25,23 @@ public class EditPreferences extends Controller {
     public Result submit() {
         User user = User.findByEmail(session().get("email"));
         Form<UserPreferences> filledForm = preferencesForm.bindFromRequest();
-        UserPreferences preferences = UserPreferences.findByUserId(user.id);
-
+        if (filledForm.hasErrors()) {
+            return badRequest(editpreferences.render(user, preferencesForm));
+        }
+        Long userId;
+        if (user == null) {
+            userId = filledForm.get().userId;
+        } else {
+            userId = user.id;
+        }
+        UserPreferences preferences = UserPreferences.findByUserId(userId);
         if (preferences != null) {
             preferences.set(filledForm.get());
             preferences.save();
         } else {
             UserPreferences newPreferences = new UserPreferences();
             newPreferences.set(filledForm.get());
-            newPreferences.userId = user.id;
+            newPreferences.userId = userId;
             newPreferences.save();
         }
 

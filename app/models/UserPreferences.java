@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import play.data.validation.Constraints;
 
 import javax.persistence.*;
 
@@ -12,12 +13,15 @@ public class UserPreferences extends Model {
     public Long preferenceId;
 
     @Column
+    @Constraints.Required
     public String locationPref;
 
     @Column
+    @Constraints.Required
     public String genderPref;
 
     @Column
+    @Constraints.Required
     public String studentPref;
 
     @OneToOne
