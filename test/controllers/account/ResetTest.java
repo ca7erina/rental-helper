@@ -37,4 +37,12 @@ public class ResetTest {
         assertEquals(OK, result.status());
         assertTrue(contentAsString(result).contains(Messages.get("resetpassword.mailsent")));
     }
+
+    @Test
+    public void testResetPasswordFailWithEmptyEmail() {
+        Map<String, String> data = new HashMap<>();
+        data.put("email", "");
+        Result result = route(fakeRequest("POST", routes.Reset.ask().toString()).bodyForm(data));
+        assertEquals(BAD_REQUEST, result.status());
+    }
 }
