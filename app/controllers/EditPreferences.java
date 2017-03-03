@@ -25,6 +25,9 @@ public class EditPreferences extends Controller {
     public Result submit() {
         User user = User.findByEmail(session().get("email"));
         Form<UserPreferences> filledForm = preferencesForm.bindFromRequest();
+        if (filledForm.hasErrors()) {
+            return badRequest(editpreferences.render(user, preferencesForm));
+        }
         Long userId;
         if (user == null) {
             userId = filledForm.get().userId;
