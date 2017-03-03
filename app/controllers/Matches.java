@@ -1,6 +1,7 @@
 package controllers;
 
 import models.User;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -37,11 +38,6 @@ public class Matches extends Controller {
     //TODO
     public Result getWaitingList() {
         User user = User.findByEmail(session().get("email"));
-        // System.out.println("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCCCCCCCCCCCCCCCCCCCCCCCCCKKKKKKKKKKKKKKKKKKKKKKKK");
-        // System.out.println(user.requestedUsers);
-        // System.out.println(user.requestedUsers.get(0).fullname);
-
-
         return ok(toJson(user.getRequestedUsers()));
     }
 
@@ -49,18 +45,18 @@ public class Matches extends Controller {
     public Result getNewSuggestionMatches() {
         User user = User.findByEmail(session().get("email"));
         List<User> newMatches = MatcherService.getMatchedUsers(user.fullname);
+
         return ok(toJson(newMatches));
     }
 
     public Result getNewRequestList() {
         User user = User.findByEmail(session().get("email"));
-        // List<User> newRequests = user.incomingRequests;
         return ok(toJson(user.getIncomingRequests()));
     }
 
     public Result sendMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
-        User requestedUser = User.findByFullname(username.replace("."," "));
+        User requestedUser = User.findByFullname(username.replace(".", " "));
         user.addRequestedUser(requestedUser);
         requestedUser.addIncomingRequest(user);
         user.save();
@@ -70,7 +66,7 @@ public class Matches extends Controller {
 
     public Result cancelMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
-        User requestedUser = User.findByFullname(username.replace("."," "));
+        User requestedUser = User.findByFullname(username.replace(".", " "));
         user.removeRequestedUser(requestedUser);
         requestedUser.removeIncomingRequest(user);
         user.save();
@@ -80,7 +76,7 @@ public class Matches extends Controller {
 
     public Result confirmMatch(String username) {
         User user = User.findByEmail(session().get("email"));
-        User requestedUser = User.findByFullname(username.replace("."," "));
+        User requestedUser = User.findByFullname(username.replace(".", " "));
         user.addMatchedUser(requestedUser);
         requestedUser.addMatchedUser(user);
         user.save();
@@ -90,14 +86,11 @@ public class Matches extends Controller {
 
     public Result rejectMatch(String username) {
         User user = User.findByEmail(session().get("email"));
-        User requestedUser = User.findByFullname(username.replace("."," "));
+        User requestedUser = User.findByFullname(username.replace(".", " "));
         user.removeRequestedUser(requestedUser);
         requestedUser.removeIncomingRequest(user);
         user.save();
         requestedUser.save();
         return index();
     }
-
-
-
 }
