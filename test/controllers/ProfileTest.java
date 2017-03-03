@@ -37,8 +37,8 @@ public class ProfileTest extends WithApplication {
         profile_data.put("userId", "2");
         Result result = route(fakeRequest("POST", controllers.profile.routes.EditProfile.submit().toString()).bodyForm(profile_data));
 
-        assertEquals(OK, result.status());
-        assertEquals(controllers.profile.routes.EditProfile.index().toString(), result.redirectLocation());
+        assertEquals(303, result.status());
+        assertEquals(controllers.profile.routes.EditProfile.view().toString(), result.redirectLocation());
     }
 
     @After
