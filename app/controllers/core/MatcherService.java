@@ -34,7 +34,7 @@ public class MatcherService extends Controller {
             int j=0;
             User otherUser = User.findById(simPreferences.get(i).userId);
             String otherGender = UserProfile.findByUserId(otherUser.id).gender;
-            if (otherUser.id != user.id &&  preferences.genderPref == otherGender) {
+            if (otherUser.id != user.id &&  preferences.genderPref.equals(otherGender)) {
                 simUsers.add(j, otherUser);
                 j += 1;
             }
