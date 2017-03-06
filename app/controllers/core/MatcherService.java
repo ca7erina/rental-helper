@@ -2,9 +2,11 @@ package controllers.core;
 
 import models.User;
 import play.Logger;
-
+import play.mvc.Controller;
 import java.util.ArrayList;
 import java.util.List;
+import models.UserPreferences;
+import models.UserProfile;
 
 /**
  * Created by vuongnguyen on 14/02/2017.
@@ -16,7 +18,7 @@ import java.util.List;
  * + Matcher: list of all matching user to the current one
  */
 
-public class MatcherService {
+public class MatcherService extends Controller {
 
     /**
      *
@@ -24,7 +26,20 @@ public class MatcherService {
      * @return List of matched users
      */
     public static List<User> getMatchedUsers(String username) {
-        return User.findSimilarityFullname(username);
+        User user = User.findByFullname(username);
+        UserPreferences preferences = UserPreferences.findByUserId(user.id);
+        List<UserPreferences> simPreferences = UserPreferences.find.where().eq("locationPref",preferences.locationPref).findList();
+        List<User> simUsers = new ArrayList<>();
+        for(int i=0; i<simPreferences.size(); ++i) {
+            int j=0;
+            User otherUser = User.findById(simPreferences.get(i).userId);
+            String otherGender = UserProfile.findByUserId(otherUser.id).gender;
+            if (otherUser.id != user.id &&  preferences.genderPref.equals(otherGender)) {
+                simUsers.add(j, otherUser);
+                j += 1;
+            }
+        }
+        return simUsers;
     }
 
     /**
@@ -32,9 +47,10 @@ public class MatcherService {
      * @param username email to search the waiting users that haven't responded to the user request
      * @return List of waiting users
      */
-    public static List<User> getWaitingForUsers(String username) {
-        return User.findSimilarityFullname(username);
-    }
+    // public static List<User> getWaitingForUsers() {
+    //     User user = User.findByEmail(session().get("email"));
+    //     return user.requestedUsers;
+    // }
 
     /**
      *

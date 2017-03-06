@@ -42,6 +42,13 @@ GET     /matches                       controllers.Matches.index()
 GET     /matches/getmatchedlist        controllers.Matches.getMatchedList()
 GET     /matches/getwaitinglist        controllers.Matches.getWaitingList()
 GET     /matches/getnewsuggestionlist  controllers.Matches.getNewSuggestionMatches()
+GET     /matches/getnewrequestlist     controllers.Matches.getNewRequestList()
+
+GET 	/sendMatchRequest/*user		   controllers.Matches.sendMatchRequest(user)
+GET 	/cancelMatchRequest/*user	   controllers.Matches.cancelMatchRequest(user)
+GET 	/confirmMatch/*user		   	   controllers.Matches.sendMatchRequest(user)
+GET 	/rejectMatch/*user		   	   controllers.Matches.sendMatchRequest(user)
+
 GET     /mypreferences                 controllers.EditPreferences.index()
 POST    /mypreferences                 controllers.EditPreferences.submit()
 
