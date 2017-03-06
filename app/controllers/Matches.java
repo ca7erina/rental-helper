@@ -52,6 +52,11 @@ public class Matches extends Controller {
         return ok(toJson(user.getIncomingRequests(user)));
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public Result sendMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
@@ -60,7 +65,11 @@ public class Matches extends Controller {
         return index();
     }
 
-    // TODO
+    /**
+     * Cancel the previous match request for the user
+     * @param username
+     * @return
+     */
     public Result cancelMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
