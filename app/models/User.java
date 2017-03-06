@@ -1,12 +1,16 @@
 package models;
 
 import com.avaje.ebean.Model;
+import models.matcher.MatchingInfo;
 import models.utils.AppException;
 import models.utils.Hash;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,10 +55,6 @@ public class User extends Model {
 
     @OneToOne(mappedBy = "user")
     public UserPreferences preferences;
-
-    //    @OneToMany(mappedBy = "user")
-    @OneToMany()
-    public List<MatchingInformation> matchingInformations;
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
@@ -152,55 +152,110 @@ public class User extends Model {
         return true;
     }
 
-    public void addRequestedUser(User user, Long requestedUserId) {
-        MatchingInformation matchingInformation = new MatchingInformation();
+    /**
+     * @param currentUser   the current user
+     * @param requestedUser the user that the current is interested in
+     */
+    public static void addRequestedUser(User currentUser, User requestedUser) {
+        // Add requestedId for the current User
+        MatchingInfo existingRequestedUser = MatchingInfo.getExistingRequestedUser(currentUser.id, requestedUser.id);
 
-        matchingInformation.userId = user.id;
-        matchingInformation.requestedUserId = requestedUserId;
-        matchingInformation.active = true;
+        if (existingRequestedUser == null) {
+            MatchingInfo requestedInfo = new MatchingInfo();
+            requestedInfo.requestedUserId = requestedUser.id;
+            requestedInfo.active = true;
+            requestedInfo.userId = currentUser.id;
+            requestedInfo.createdDate = new Date();
 
-        user.matchingInformations.add(matchingInformation);
-        user.save();
+            requestedInfo.save();
+        } else {
+            existingRequestedUser.active = true;
+            existingRequestedUser.updatedDate = new Date();
+
+            existingRequestedUser.save();
+        }
+
+
+        // Add incomingRequest for the requestedUser
+        MatchingInfo existingIncomingUser = MatchingInfo.getExistingIncomingUser(requestedUser.id, currentUser.id);
+        if (existingIncomingUser == null) {
+            MatchingInfo incomingInfo = new MatchingInfo();
+            incomingInfo.active = true;
+            incomingInfo.incomingRequestId = currentUser.id;
+            incomingInfo.userId = requestedUser.id;
+            incomingInfo.createdDate = null;
+
+            incomingInfo.save();
+        } else {
+            existingIncomingUser.active = true;
+            existingIncomingUser.updatedDate = null;
+            existingIncomingUser.save();
+        }
     }
 
     /**
-     * Get list of requested users
+     * Get the list of requested users for the current user
      *
-     * @return
+     * @param currentUser the current user
+     * @return Array
      */
-    public List<User> getRequestedUsers(User user) {
-        List<User> listUser = new ArrayList<User>();
-        for (MatchingInformation eachMatching: user.matchingInformations) {
-            listUser.add(User.findById(eachMatching.userId));
+    public static List<User> getRequestedUsers(User currentUser) {
+        List<User> listUser = new ArrayList<>();
+
+        for (MatchingInfo each : MatchingInfo.findByUserId(currentUser.id)) {
+            if (each.userId != null && each.active && each.requestedUserId != null) {
+                listUser.add(User.findById(each.requestedUserId));
+            }
         }
+
         return listUser;
     }
 
     /**
      * Remove the request for matching from the current User
+     *
+     * @param currentUser     the current user
+     * @param requestedUserId the requested user
+     */
+    public static void removeRequestedUser(User currentUser, User requestedUserId) {
+        MatchingInfo existingRequestedUser = MatchingInfo.getExistingRequestedUser(currentUser.id, requestedUserId.id);
+        if (existingRequestedUser != null) {
+            existingRequestedUser.active = false;
+            existingRequestedUser.updatedDate = new Date();
+            existingRequestedUser.save();
+        }
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public static List<User> getMatchedUsers() {
+        return null;
+    }
+
+    /**
      * @param requestedUserId
      */
-    public void removeRequestedUser(User requestedUserId) {
+    public static void addMatchedUser(User requestedUserId) {
 
     }
 
-    public List<User> getMatchedUsers(User user) {
-        return null;
-    }
+    /**
+     * Get the incoming list of users for the current user
+     *
+     * @param currentUser the current user
+     * @return Array
+     */
+    public static List<User> getIncomingRequests(User currentUser) {
+        List<User> listIncomingUser = new ArrayList<>();
 
-    public void addMatchedUser(User requestedUserId) {
+        for (MatchingInfo each : MatchingInfo.findByUserId(currentUser.id)) {
+            if (each.userId != null && each.active && each.incomingRequestId != null) {
+                listIncomingUser.add(User.findById(each.incomingRequestId));
+            }
+        }
 
-    }
-
-    public List<User> getIncomingRequests(User user) {
-        return null;
-    }
-
-    public void addIncomingRequest(User requestingUser) {
-
-    }
-
-    public void removeIncomingRequest(User requestingUser) {
-
+        return listIncomingUser;
     }
 }
