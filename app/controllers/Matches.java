@@ -1,7 +1,7 @@
 package controllers;
 
+import controllers.core.MatcherService;
 import models.User;
-import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static play.libs.Json.toJson;
-
-import controllers.core.MatcherService;
 
 /**
  * Matches page controller
@@ -38,7 +36,7 @@ public class Matches extends Controller {
     //TODO
     public Result getWaitingList() {
         User user = User.findByEmail(session().get("email"));
-        return ok(toJson(user.getRequestedUsers()));
+        return ok(toJson(user.getRequestedUsers(user)));
     }
 
     //TODO
@@ -51,46 +49,38 @@ public class Matches extends Controller {
 
     public Result getNewRequestList() {
         User user = User.findByEmail(session().get("email"));
-        return ok(toJson(user.getIncomingRequests()));
+        return ok(toJson(user.getIncomingRequests(user)));
     }
 
     public Result sendMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
-        user.addRequestedUser(requestedUser);
-        requestedUser.addIncomingRequest(user);
-        user.save();
-        requestedUser.save();
+        user.addRequestedUser(user, requestedUser.id);
+
         return index();
     }
 
+    // TODO
     public Result cancelMatchRequest(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
-        user.removeRequestedUser(requestedUser);
-        requestedUser.removeIncomingRequest(user);
-        user.save();
-        requestedUser.save();
+
         return index();
     }
 
+    // TODO
     public Result confirmMatch(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
-        user.addMatchedUser(requestedUser);
-        requestedUser.addMatchedUser(user);
-        user.save();
-        requestedUser.save();
+
         return index();
     }
 
+    // TODO
     public Result rejectMatch(String username) {
         User user = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
-        user.removeRequestedUser(requestedUser);
-        requestedUser.removeIncomingRequest(user);
-        user.save();
-        requestedUser.save();
+
         return index();
     }
 }

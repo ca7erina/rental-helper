@@ -6,10 +6,7 @@ import models.utils.Hash;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +20,6 @@ import java.util.List;
 public class User extends Model {
 
     protected static int MAX_LIMIT_ROWS = 3;
-
-    protected static List<User> requestedUsers = new ArrayList<>();
-    protected static List<User> incomingRequests = new ArrayList<>();
-    protected static List<User> matchedUsers = new ArrayList<>();
 
     @Id
     public Long id;
@@ -58,6 +51,10 @@ public class User extends Model {
 
     @OneToOne(mappedBy = "user")
     public UserPreferences preferences;
+
+    //    @OneToMany(mappedBy = "user")
+    @OneToMany()
+    public List<MatchingInformation> matchingInformations;
 
     public static Model.Finder<Long, User> find = new Model.Finder<Long, User>(Long.class, User.class);
 
@@ -155,36 +152,55 @@ public class User extends Model {
         return true;
     }
 
-    public List<User> getMatchedUsers() {
-        return matchedUsers;
+    public void addRequestedUser(User user, Long requestedUserId) {
+        MatchingInformation matchingInformation = new MatchingInformation();
+
+        matchingInformation.userId = user.id;
+        matchingInformation.requestedUserId = requestedUserId;
+        matchingInformation.active = true;
+
+        user.matchingInformations.add(matchingInformation);
+        user.save();
     }
 
-    public void addMatchedUser(User requestedUser) {
-        matchedUsers.add(requestedUser);
+    /**
+     * Get list of requested users
+     *
+     * @return
+     */
+    public List<User> getRequestedUsers(User user) {
+        List<User> listUser = new ArrayList<User>();
+        for (MatchingInformation eachMatching: user.matchingInformations) {
+            listUser.add(User.findById(eachMatching.userId));
+        }
+        return listUser;
     }
 
-    public List<User> getRequestedUsers() {
-        return requestedUsers;
+    /**
+     * Remove the request for matching from the current User
+     * @param requestedUserId
+     */
+    public void removeRequestedUser(User requestedUserId) {
+
     }
 
-    public void addRequestedUser(User requestedUser) {
-        requestedUsers.add(requestedUser);
+    public List<User> getMatchedUsers(User user) {
+        return null;
     }
 
-    public void removeRequestedUser(User requestedUser) {
-        requestedUsers.remove(requestedUser);
+    public void addMatchedUser(User requestedUserId) {
+
     }
 
-    public List<User> getIncomingRequests() {
-        return incomingRequests;
+    public List<User> getIncomingRequests(User user) {
+        return null;
     }
 
     public void addIncomingRequest(User requestingUser) {
-        incomingRequests.add(requestingUser);
+
     }
 
     public void removeIncomingRequest(User requestingUser) {
-        incomingRequests.remove(requestingUser);
-    }
 
+    }
 }

@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table matching_information (
+  id                        bigint not null,
+  requested_user_id         bigint,
+  incoming_request_id       bigint,
+  matched_user_id           bigint,
+  user_id                   bigint not null,
+  active                    boolean,
+  constraint pk_matching_information primary key (id))
+;
+
 create table token (
   token                     varchar(255) not null,
   user_id                   bigint,
@@ -52,6 +62,8 @@ create table user_profile (
   constraint pk_user_profile primary key (profile_id))
 ;
 
+create sequence matching_information_seq;
+
 create sequence token_seq;
 
 create sequence user_seq;
@@ -60,16 +72,20 @@ create sequence user_preferences_seq;
 
 create sequence user_profile_seq;
 
-alter table user_preferences add constraint fk_user_preferences_user_1 foreign key (id) references user (id) on delete restrict on update restrict;
-create index ix_user_preferences_user_1 on user_preferences (id);
-alter table user_profile add constraint fk_user_profile_user_2 foreign key (id) references user (id) on delete restrict on update restrict;
-create index ix_user_profile_user_2 on user_profile (id);
+alter table matching_information add constraint fk_matching_information_user_1 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_matching_information_user_1 on matching_information (user_id);
+alter table user_preferences add constraint fk_user_preferences_user_2 foreign key (id) references user (id) on delete restrict on update restrict;
+create index ix_user_preferences_user_2 on user_preferences (id);
+alter table user_profile add constraint fk_user_profile_user_3 foreign key (id) references user (id) on delete restrict on update restrict;
+create index ix_user_profile_user_3 on user_profile (id);
 
 
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists matching_information;
 
 drop table if exists token;
 
@@ -80,6 +96,8 @@ drop table if exists user_preferences;
 drop table if exists user_profile;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists matching_information_seq;
 
 drop sequence if exists token_seq;
 
