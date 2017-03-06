@@ -21,14 +21,12 @@ public class EditProfile extends Controller {
         User user = User.findByEmail(session().get("email"));
         UserProfile profile = UserProfile.findByUserId(user.id);
         profileForm = profileForm.fill(profile);
-
         return ok(editprofile.render(user, profileForm));
     }
 
     public Result submit() {
         User user = User.findByEmail(session().get("email"));
         Form<UserProfile> filledForm = profileForm.bindFromRequest();
-
         if (filledForm.hasErrors()) {
             return badRequest(editprofile.render(user, profileForm));
         } else {
@@ -37,22 +35,18 @@ public class EditProfile extends Controller {
             if (body != null && body.getFile("image") != null) {
                 picture = body.getFile("image");
             }
-
             UserProfile profile = null;
-
             if (user != null) {
                 profile = UserProfile.findByUserId(user.id);
             } else {
                 profile = UserProfile.findByUserId(filledForm.get().userId);
             }
             profile.set(filledForm.get());
-
             if (picture != null && picture.getFile() != null) {
                 profile.image = picture.getFile();
                 String filePath = "public/user_pictures/" + user.email + ".png";
                 profile.saveImage(picture.getFile(), filePath);
             }
-
             profile.save();
             return GO_VIEW;
         }
@@ -65,8 +59,8 @@ public class EditProfile extends Controller {
     }
 
     public Result viewOther(String username) {
-        User user = User.findByFullname(username.replace("."," "));
+        User user = User.findByFullname(username.replace(".", " "));
         UserProfile profile = UserProfile.findByUserId(user.id);
-        return(ok(viewprofile.render(user,profile)));
+        return(ok(viewprofile.render(user, profile)));
     }
 }

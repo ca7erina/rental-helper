@@ -36,7 +36,7 @@ public class CreateProfile extends Controller {
             newProfile.saveImage(picture.getFile(), filePath);
             newProfile.userId = user.id;
             newProfile.save();
-            return ok(viewprofile.render(user,newProfile));
+            return ok(viewprofile.render(user, newProfile));
         }
     }
 }
