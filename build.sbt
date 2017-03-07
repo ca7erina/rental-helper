@@ -4,6 +4,11 @@ name := """Rental Helper"""
 
 version := "1.0-SNAPSHOT"
 
+// --------  For docker stuff ----------
+maintainer := "vuongnq.09@gmail.com"
+dockerExposedPorts in Docker := Seq(9000, 9443)
+// -------------------------------------
+
 scalaVersion := "2.10.5"
 
 libraryDependencies ++= Seq(
@@ -22,7 +27,6 @@ resolvers ++= Seq(
   "Sonatype OSS Snasphots" at "http://oss.sonatype.org/content/repositories/snapshots",
   "Typesafe Ivy releases" at "https://repo.typesafe.com/typesafe/ivy-releases"
 )
-
 resolvers += "Typesafe Bintray Ivy releases" at "https://dl.bintray.com/typesafe/ivy-releases"
 
 routesGenerator := InjectedRoutesGenerator
