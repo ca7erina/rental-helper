@@ -1,6 +1,6 @@
 # Get Waiting For List Of Current User
 getMatchedListData = () ->
-  $.ajax "/matches/getmatchedlist",
+  $.ajax "/matches/get-matched-list",
     type: 'GET'
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
@@ -8,7 +8,7 @@ getMatchedListData = () ->
       title = "<h1>Matched Renters</h1>"
       listBody = ""
       $.each data, (index, user) ->
-        uri = "/viewprofile/" + user.fullname.replace(/\s/g, ".")
+        uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
         path = "/assets/user_pictures/" + user.email + ".png"
         listCell = "<div class='col-sm-" + "6" + " text-center'>" +
         "<figure class= 'profile'> " +
@@ -27,14 +27,14 @@ $ ->
 
 # Get Waiting For List Of Current User
 getWaitingListData = () ->
-  $.ajax "/matches/getwaitinglist",
+  $.ajax "/matches/get-waiting-list",
     type: 'GET'
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
       htmlTarget = $("#waitingiterator tbody")
       tableBody = ""
       $.each data, (index, user) ->
-        cancelPath = "/cancelMatchRequest/" + user.fullname.replace(/\s/g, ".")
+        cancelPath = "/cancel-match-request/" + user.fullname.replace(/\s/g, ".")
         tableRow = "<tr><td>" + user.email + "</td>" +
         "<td>" + user.fullname + "</td>"+
         "<td><button type='button' class='btn btn-info btn-xs'  title='Cancle Request' userid='" + user.id + "'><i class='icon-trash'></i> <strong><a href='" + cancelPath +  "'>  Cancel </a></strong></button>" + "</td>" +
@@ -51,7 +51,7 @@ $ ->
 
 # Get New Suggestion List Of Current User
 getNewSuggestionListData = () ->
-  $.ajax "/matches/getnewsuggestionlist",
+  $.ajax "/matches/get-new-suggestion-list",
     type: 'GET'
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
@@ -59,8 +59,8 @@ getNewSuggestionListData = () ->
       title = "<h1>New Suggestions</h1>"
       listBody = ""
       $.each data, (index, user) ->
-        uri = "/viewprofile/" + user.fullname.replace(/\s/g, ".")
-        requestUri = "/sendMatchRequest/" + user.fullname.replace(/\s/g, ".")
+        uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
+        requestUri = "/send-match-request/" + user.fullname.replace(/\s/g, ".")
         path = "/assets/user_pictures/" + user.email + ".png"
         listCell = "<div class='col-sm-" + "2" + " text-center'>" +
         "<figure class= 'profile'> " +
@@ -79,7 +79,7 @@ $ ->
   getNewSuggestionListData()
 
 getNewRequestListData = () ->
-  $.ajax "/matches/getnewrequestlist",
+  $.ajax "/matches/get-new-request-list",
     type: 'GET'
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
@@ -87,9 +87,9 @@ getNewRequestListData = () ->
       title = "<h1>New Requests</h1>"
       listBody = ""
       $.each data, (index, user) ->
-        uri = "/viewprofile/" + user.fullname.replace(/\s/g, ".")
-        confirmMatchUri = "/confirmMatch/" + user.fullname.replace(/\s/g, ".")
-        rejectMatchUri = "/rejectMatch/" + user.fullname.replace(/\s/g, ".")
+        uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
+        confirmMatchUri = "/confirm-match/" + user.fullname.replace(/\s/g, ".")
+        rejectMatchUri = "/reject-match/" + user.fullname.replace(/\s/g, ".")
         path = "/assets/user_pictures/" + user.email + ".png"
         listCell = "<div class='col-sm-" + "2" + " text-center'>" +
         "<figure class= 'profile'> " +
@@ -105,4 +105,4 @@ getNewRequestListData = () ->
       window.location.href = "/";
   setTimeout getNewSuggestionListData, 10000
 $ ->
-  getNewSuggestionListData()
+  getNewRequestListData()

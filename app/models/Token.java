@@ -1,16 +1,14 @@
 package models;
 
+import com.avaje.ebean.Model;
 import models.utils.Mail;
 import play.Configuration;
 import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import com.avaje.ebean.Model;
 import play.i18n.Messages;
-import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 
-import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -127,8 +125,8 @@ public class Token extends Model {
      * @param email email for a change email token
      * @throws java.net.MalformedURLException if token is wrong.
      */
-    public void sendMailChangeMail(User user, @Nullable String email,MailerClient mc) throws MalformedURLException {
-        sendMail(user, TypeToken.email, email,mc );
+    public void sendMailChangeMail(User user, String email, MailerClient mc) throws MalformedURLException {
+        sendMail(user, TypeToken.email, email, mc);
     }
 
     /**
