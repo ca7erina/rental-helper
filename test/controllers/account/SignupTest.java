@@ -20,7 +20,7 @@ import static play.test.Helpers.*;
 public class SignupTest {
     @Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication());
     }
 
     @Test
@@ -33,8 +33,9 @@ public class SignupTest {
     @Test
     public void testSignupSuccess() {
         Map<String, String> data = new HashMap<>();
-        data.put("email", "register@gmail.com");
-        data.put("fullname", "New Register");
+        String username = System.currentTimeMillis() + "";
+        data.put("email", username + "@gmail.com");
+        data.put("fullname", username);
         data.put("inputPassword", "123456");
         Result result = route(fakeRequest("POST", routes.Signup.save().toString()).bodyForm(data));
         assertEquals(OK, result.status());

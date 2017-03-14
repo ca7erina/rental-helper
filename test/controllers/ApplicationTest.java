@@ -19,7 +19,7 @@ public class ApplicationTest extends WithApplication {
 
     @Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication());
     }
 
     @Test
