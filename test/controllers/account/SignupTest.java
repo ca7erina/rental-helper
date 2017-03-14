@@ -40,8 +40,8 @@ public class SignupTest {
         Result result = route(fakeRequest("POST", routes.Signup.save().toString()).bodyForm(data));
         assertEquals(OK, result.status());
         // check if there is a new use in the system.
-        User newUser = User.findByEmail("register@gmail.com");
-        assertEquals(newUser.fullname, "New Register");
+        User newUser = User.findByEmail(username + "@gmail.com");
+        assertEquals(newUser.fullname, username);
     }
 
     @Test
