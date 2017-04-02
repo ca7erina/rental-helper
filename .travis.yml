@@ -11,9 +11,11 @@ env:
 deploy:
   provider: script
   skip_cleanup: true
-  script: chmod 600 deploy_key && scp -o StrictHostKeyChecking=no -i deploy_key deploy.sh vuongnq.09@35.187.36.79:/home/vuongnq.09/ && ssh -o StrictHostKeyChecking=no -i deploy_key vuongnq.09@35.187.36.79 ./deploy.sh
+  script: chmod 600 deploy_key && scp -o StrictHostKeyChecking=no -i deploy_key deploy.sh
+    vuongnq.09@35.187.36.79:/home/vuongnq.09/ && ssh -o StrictHostKeyChecking=no -i
+    deploy_key vuongnq.09@35.187.36.79 ./deploy.sh
   on:
     branch: master
 before_install:
 - openssl aes-256-cbc -K $encrypted_48c43a316a9a_key -iv $encrypted_48c43a316a9a_iv
-  -in deploy_key.enc -out deploy_key -d
+  -in deploy_key.enc -out ./deploy_key -d
