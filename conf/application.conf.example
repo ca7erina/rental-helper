@@ -17,19 +17,18 @@ play.crypto.secret="</N_v`W4xv8GY^c7e=UCDYF]vXSguUvABIHoi[JNm1j@lf2C6S9TL[?FNM?I
 # ~~~~~
 # You can declare as many datasources as you want.
 # By convention, the default datasource is named `default`
-H2 database engine connection properties
+#H2 database engine connection properties
 db.default.driver=org.h2.Driver
 db.default.url="jdbc:h2:mem:play"
 db.default.autocommit=true
 play.evolutions.autoApply=true
 
-
 #MySQL database engine connection properties
-#db.default.driver=com.mysql.jdbc.Driver
-#db.default.url="jdbc:mysql://localhost/default"
-#db.default.autocommit=true
-#db.default.username="root"
-#db.default.password="cd"
+#db.rentalhelper.driver=com.mysql.jdbc.Driver
+#db.rentalhelper.url="jdbc:mysql://master-node/default"
+#db.rentalhelper.autocommit=true
+#db.rentalhelper.username=""
+#db.rentalhelper.password=""
 
 #
 # You can expose this datasource via JNDI if needed (Useful for JPA)
@@ -39,6 +38,7 @@ play.evolutions.autoApply=true
 # ~~~~~
 # You can disable evolutions if needed
 # evolutions=disabled
+#play.evolutions.enabled=false
 
 
 # Ebean configuration
@@ -48,7 +48,7 @@ play.evolutions.autoApply=true
 #
 ebean.default = "models.*"
 
-#ebean.order = ["models.Order", "models.OrderItem"]
+#ebean.rentalhelper = "models.*"
 
 # Logger
 # ~~~~~

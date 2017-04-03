@@ -20,7 +20,7 @@ import static play.test.Helpers.*;
 public class ResetTest {
     @Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication());
     }
 
     @Test

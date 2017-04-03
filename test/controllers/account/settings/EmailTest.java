@@ -18,7 +18,7 @@ import static play.test.Helpers.inMemoryDatabase;
 public class EmailTest {
     @Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication());
     }
 
     @Test

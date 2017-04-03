@@ -23,7 +23,7 @@ public class EditPreferenceTest {
 
     @Before
     public void setUp() {
-        start(fakeApplication(inMemoryDatabase()));
+        start(fakeApplication());
         userLogin();
     }
 
