@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -227,11 +228,22 @@ public class User extends Model {
     }
 
     /**
-     * 
-     * @return
+     * @param currentUser the current User
+     * @return Array List of matched User
      */
-    public static List<User> getMatchedUsers() {
-        return null;
+    public static List<User> getMatchedUsers(User currentUser) {
+        List<User> userList = new ArrayList<>();
+        HashMap<Long, User> userMap = new HashMap<>();
+
+        for (MatchingInfo each : MatchingInfo.findByUserId(currentUser.id)) {
+
+            if (each.userId != null && each.active && each.matchedUserId != null) {
+                userMap.put(each.matchedUserId, User.findById(each.matchedUserId));
+            }
+        }
+
+        userList.addAll(userMap.values());
+        return userList;
     }
 
     /**
