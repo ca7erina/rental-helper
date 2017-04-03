@@ -7,7 +7,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,15 +24,11 @@ public class Matches extends Controller {
         return ok(views.html.matches.render(User.findByEmail(request().username())));
     }
 
-    //TODO
     public Result getMatchedList() {
-        List<User> matchedUsers = new ArrayList<>();
-        User user_1 = User.findByEmail("a@gmail.com");
-        User user_2 = User.findByEmail("admin@gmail.com");
-        matchedUsers.add(0, user_1);
-        matchedUsers.add(1, user_2);
+        User user = User.findByEmail(session().get("email"));
+        List<User> listMatchedUser = User.getMatchedUsers(user);
 
-        return ok(toJson(matchedUsers));
+        return ok(toJson(listMatchedUser));
     }
 
     public Result getWaitingList() {
@@ -42,10 +37,10 @@ public class Matches extends Controller {
         return ok(toJson(User.getRequestedUsers(user)));
     }
 
-    //TODO
+
     public Result getNewSuggestionMatches() {
         User user = User.findByEmail(session().get("email"));
-        List<User> newMatches = MatcherService.getMatchedUsers(user.fullname);
+        List<User> newMatches = MatcherService.getSimilarityUsers(user.fullname);
 
         return ok(toJson(newMatches));
     }
@@ -99,6 +94,7 @@ public class Matches extends Controller {
         User currentUser = User.findByEmail(session().get("email"));
         User requestedUser = User.findByFullname(username.replace(".", " "));
 
+        // Update incoming request for current user
         MatchingInfo existingIncomingUser = MatchingInfo.getExistingIncomingUser(currentUser.id, requestedUser.id);
         if (existingIncomingUser != null) {
             existingIncomingUser.incomingRequestId = null;
@@ -107,6 +103,18 @@ public class Matches extends Controller {
 
             existingIncomingUser.save();
 
+        }
+
+        // Update matched for requested user
+        List<MatchingInfo> matchRequested = MatchingInfo.findByUserId(requestedUser.id);
+        for (MatchingInfo user: matchRequested) {
+            if (user.active && user.requestedUserId != null) {
+                user.requestedUserId = null;
+                user.updatedDate = new Date();
+                user.matchedUserId = currentUser.id;
+
+                user.save();
+            }
         }
 
         return index();

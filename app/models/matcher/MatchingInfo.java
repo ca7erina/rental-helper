@@ -4,7 +4,9 @@ import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.Index;
 import play.data.format.Formats;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.List;
 
@@ -62,5 +64,25 @@ public class MatchingInfo extends Model {
                 .eq("incomingRequestId", incomingRequestId)
                 .eq("active", true)
                 .findUnique();
+    }
+
+    public static boolean checkExistInMatchedAndRequestedIds(Long currentUserId, Long otherUserId) {
+        Boolean inList = false;
+
+        List<MatchingInfo> listUsers = find
+                .where()
+                .eq("user_id", currentUserId)
+                .select("")
+                .findList();
+
+        for (MatchingInfo e : listUsers) {
+            if ((e.requestedUserId != null && e.requestedUserId.equals(otherUserId))
+                    || (e.matchedUserId != null && e.matchedUserId.equals(otherUserId))) {
+                inList = true;
+                break;
+            }
+        }
+
+        return inList;
     }
 }
