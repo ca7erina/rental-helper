@@ -1,10 +1,7 @@
 set global max_connections = 2000;
-create user 'rentalhelper'@'%' identified by '123456';
-create database rentalhelperDB;
-grant all privileges on rentalhelperDB.* to 'rentalhelper'@'%' identified by '123456';
-flush privileges;
+create database rentalhelper;
 
-use rentalhelperDB;
+use rentalhelper;
 
 create table matching_info (
   id                        bigint not null AUTO_INCREMENT,
