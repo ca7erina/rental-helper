@@ -81,5 +81,6 @@ The later command to add the user into sudo mode for docker.
     ```
     with `10.132.0.5` is the machine's IP. 
 
-6. Enjoy your Fabric distributed
+
+6. Enjoy your Fabric distributed database
 
