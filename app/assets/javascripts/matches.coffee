@@ -5,7 +5,7 @@ getMatchedListData = () ->
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
       htmlTarget = $("#matchediterator")
-      title = "<h1>Matched Renters</h1>"
+      title = ""
       listBody = ""
       $.each data, (index, user) ->
         uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
@@ -13,7 +13,7 @@ getMatchedListData = () ->
         listCell = "<div class='col-sm-" + "6" + " text-center'>" +
         "<figure class= 'profile'> " +
         "<a href='" + uri + "'><img class=' mx-auto d-block img-rounded img-responsive img-fluid' src='" + path + "' ></a>" +
-        "<figcaption>" + user.fullname + "</figcaption> " +
+        "<figcaption style='font-weight: bold'>" + user.fullname.split(' ')[0] + "</figcaption> " +
         "</figure></div>"
         listBody += listCell
       if listBody.length is 0 then listBody = """<strong>No results</strong>"""
@@ -49,26 +49,28 @@ getWaitingListData = () ->
 $ ->
   getWaitingListData()
 
-# Get New Suggestion List Of Current User
+# Get New Suggestion List Of Current Userr
 getNewSuggestionListData = () ->
   $.ajax "/matches/get-new-suggestion-list",
     type: 'GET'
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
       htmlTarget = $("#newSuggestionIterator")
-      title = "<h1>New Suggestions</h1>"
+      title = ""
       listBody = ""
       $.each data, (index, user) ->
         uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
         requestUri = "/send-match-request/" + user.fullname.replace(/\s/g, ".")
         path = "/assets/user_pictures/" + user.email + ".png"
-        listCell = "<div class='col-sm-" + "2" + " text-center'>" +
+        listCell = "<div class='col-sm-" + "3" + " text-center'>" +
         "<figure class= 'profile'> " +
         "<a href='" + uri +  "'>'<img class=' mx-auto d-block img-rounded img-responsive img-fluid descrption-tooltip' src='" + path + "' title='description' data-toggle='tooltip' data-placement='bottom'></a>" +
-        "<figcaption>" + user.fullname + "</figcaption> " +
+        # "<a href='" + uri +  "'>'<img class=' mx-auto d-block img-rounded img-responsive img-fluid descrption-tooltip' style = 'height: 140px; width: 200px; border:1.5px solid black' src='" + path + "' title='description' data-toggle='tooltip' data-placement='bottom'></a>" +
+        "<figcaption style='font-weight: bold'>" + user.fullname.split(' ')[0] + "</figcaption> " +
         "<figcaption><button type='button' class='btn btn-danger btn-xs' title='description' userid='" + user.id + "'><i class='icon-like'></i> <strong><a href='" + requestUri +  "'>"+ "Like" +"</a></strong></button>&nbsp;&nbsp;<button type='button' class='btn btn-success btn-xs' title='description' userid='" + user.id + "'><i class='icon-unlike'></i> <strong>" + "UnLike" + "</strong></button></figcaption> " +
         "</figure></div>"
         listBody += listCell
+    #   listBody += "<div class='col-xs-12' style='height:50px;'></div>"
       if listBody.length is 0 then listBody = """<strong>No results</strong>"""
       htmlTarget.html(title + listBody)
       $("#newSuggestionIterator").trigger("update", true)
@@ -84,7 +86,7 @@ getNewRequestListData = () ->
     dataType: 'json'
     success: (data, textStatus, jqXHR) ->
       htmlTarget = $("#newRequestIterator")
-      title = "<h1>New Requests</h1>"
+      title = ""
       listBody = ""
       $.each data, (index, user) ->
         uri = "/view-profile/" + user.fullname.replace(/\s/g, ".")
@@ -106,3 +108,4 @@ getNewRequestListData = () ->
   setTimeout getNewSuggestionListData, 10000
 $ ->
   getNewRequestListData()
+
