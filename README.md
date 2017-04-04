@@ -1,5 +1,5 @@
 # Rental Helper
-This project is a group work of people at Trinity College Dublinto build web application that helps people find accommodation in group easily.
+This project is a group work of people at Trinity College Dublinto build web application that helps people find accommodation in group easily. For distribution of database, we use Mysql and Mysql Fabric.
 
 # Status
 [![Build Status](https://travis-ci.org/vn09/rental-helper.png)](https://travis-ci.org/vn09/rental-helper)
