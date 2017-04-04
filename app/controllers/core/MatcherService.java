@@ -27,8 +27,25 @@ public class MatcherService extends Controller {
      */
     public static List<User> getSimilarityUsers(String username) {
         User user = User.findByFullname(username);
-        UserPreferences preferences = UserPreferences.findByUserId(user.id);
-        List<UserPreferences> simPreferences = UserPreferences.find.where().eq("locationPref", preferences.locationPref).findList();
+        UserPreferences preferences = new UserPreferences();
+        if (  UserPreferences.findByUserId(user.id) == null ){
+            return new ArrayList<>();
+        }
+        else{
+            preferences = UserPreferences.findByUserId(user.id);
+        }
+
+        List<UserPreferences> simPreferences = new ArrayList<>();
+
+        if ( UserPreferences.find.where().eq("locationPref", preferences.locationPref).findList() == null) {
+            return new ArrayList<>();
+        }
+
+
+        else {
+            simPreferences = UserPreferences.find.where().eq("locationPref", preferences.locationPref).findList();
+        }
+
         List<User> simUsers = new ArrayList<>();
 
         for (int i = 0; i < simPreferences.size(); ++i) {
