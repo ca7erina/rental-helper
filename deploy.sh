@@ -1,5 +1,5 @@
 # Pull new code and re-build docker image
-cd /home/vuongnq.09/code/rental-helper && git pull --rebase
+cd /home/vuongnq.09/code/rental-helper && git stash && git pull --rebase
 cp /home/vuongnq.09/config/application.conf /home/vuongnq.09/code/rental-helper/conf/
 
 # Build image
